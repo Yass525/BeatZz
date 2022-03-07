@@ -1,48 +1,68 @@
- import mongoose from 'mongoose';
- import bcrypt from 'bycrypt';
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const bcrypt = require('bcrypt')
 
-const { Schema } = mongoose;
-
-  const userSchema = new Schema({
-    username: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
+const UserSchema = new Schema({
+    username: {
+        type: String,
+        lowercase: true,
+        unique: true,
+        required: true,
+        index: true
+    },
     //pass is hashed with bcrypt
     password: { type: String, required: true },
-    email: {type: String, required: true},
+    email: {
+        type: String,
+        required: true,
+        lowercase: true,
+        unique: true
+    },
     profile: {
         firstName: String,
         lastName: String,
         avatar: String,
         bio: String,
-        birthdate: Date
+        birthday: Date
     },
     follows: [Schema.Types.ObjectId],
     followers: [Schema.Types.ObjectId],
-    status: {type: Boolean, default: true},
+    status: { type: Boolean, default: true },
     accType: {
         type: String,
-        enum: ['FREE', 'PREMIUM','TRIAL'],
+        enum: ['FREE', 'PREMIUM', 'TRIAL'],
         default: 'FREE'
     },
-    role: {
+    ROLE: {
         type: String,
-        enum: ['USER', 'ADMIN'],
-        default: 'USER'
+        enum: ['BASIC_USER', 'ADMIN','PREMIUM_USER'],
+        default: 'BASIC_USER'
     }
-        
-},{
-    timestamps:true
-  });
 
-  UserSchema.pre("save", function(next) {
-    if(!this.isModified("password")) {
- 	   return next();
-    }
-    this.password = bcrypt.hashSync(this.password, 10);
-    next();
+    }, 
+{
+    timestamps: true
 });
 
-UserSchema.methods.comparePassword = function(plaintext, callback) {
-    return callback(null, bcrypt.compareSync(plaintext, this.password));
-};
+UserSchema.pre('save', async function (next) {
+    try {
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword  = await bcrypt.hash(this.password, salt)
+        this.password = hashedPassword
+        next()
+    } catch (error) {
+        next(error)
+    }
 
-module.exports = mongoose.model("User", UserSchema);
+})
+
+UserSchema.methods.isValidPassword = async function (password){
+    try {
+        return await bcrypt.compare(password, this.password)
+    } catch (error) {
+        throw error
+    }
+}
+
+const User = mongoose.model('user', UserSchema)
+module.exports = User  

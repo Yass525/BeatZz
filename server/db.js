@@ -1,26 +1,30 @@
-import mongo from 'mongodb'
-const MongoClient = mongo.MongoClient
+const mongoose = require('mongoose')
 
-const url = "mongodb+srv://memoryMern:megaman500@realmcluster.xqs34.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
- 
+require('dotenv').config({ path: './env' })
 
-const connect = (event) => {
-  event.once('boot.ready', () => {
-    MongoClient.connect(
-      url,true, (err, db) => {
-        if (err) {
-          event.emit('db.error', err)
-        }
+mongoose.connect(process.env.MONGODB_URL, {
+  dbName:process.env.DB_NAME,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 
-        /*db.admin().authenticate(options.user, options.pass, (err, result) => {
-          if (err) {
-            event.emit('db.error', err)
-          }*/
-          event.emit('db.ready', db.db())
-        //})
-      })
-  })
-}
+}).then(()=>{
+      console.log("connected to mongodb")
+}).catch((err)=> console.log(err.message))
 
-export default Object.assign({}, {connect})
+mongoose.connection.on('connected', ()=>{
+  console.log('Mongoose connected to db : '+ process.env.DB_NAME)
+})
+
+mongoose.connection.on('error', (err)=>{
+  console.log(err.message)
+})
+
+mongoose.connection.on('disconnected', ()=>{
+  console.log('Mongoose is disconnected')
+})
+
+process.on('SIGINT', async()=>{
+  await mongoose.connection.close();
+  process.exit(0)
+})
 

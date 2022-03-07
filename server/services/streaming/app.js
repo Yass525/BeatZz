@@ -8,8 +8,7 @@ require('dotenv').config({ path: '../../.env' })
 
 require('../../db')
 
-const profileRoute = require('./Routes/profile.route')
-const paymentRoute = require('./Routes/payment.route')
+const exempleRoute = require('./Routes/exemple.route')
 
 const limiter = rateLimit({
     max:5,
@@ -30,8 +29,7 @@ app.get('/', async(req,res,next)=>{
      res.send("basic user")
 })
 
-app.use('/user', profileRoute)
-app.use('/payment', paymentRoute)
+app.use('/exemple', exempleRoute)
 
 app.use(async(req,res,next)=>{
     // const error = new Error ("Not found")
