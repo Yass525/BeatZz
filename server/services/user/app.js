@@ -26,12 +26,12 @@ app.use(limiter)
 app.use(helmet.xssFilter());
 app.use(helmet.hsts());
 
-app.get('/', async(req,res,next)=>{
-     res.send("basic user")
-})
-
 app.use('/user', profileRoute)
 app.use('/payment', paymentRoute)
+
+app.get('/', (req, res) => {
+  res.send('user service')
+})
 
 app.use(async(req,res,next)=>{
     // const error = new Error ("Not found")

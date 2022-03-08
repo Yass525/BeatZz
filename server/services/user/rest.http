@@ -1,0 +1,24 @@
+http://localhost:3001/user/getAll
+
+
+###
+http://localhost:3001/user/getOne/6225dfa772813a0b7bff2fa5
+
+
+
+###
+PATCH http://localhost:3001/user/update/6225dfa772813a0b7bff2fa5
+Content-Type: application/json
+
+{
+    "email" : "yassine30eee@gmail.com",
+    "profile":{
+        "firstName":"yassinesss",
+        "lastName":"trabelsi",
+        "birthday":"2010-03-03"
+    }
+} 
+
+
+###
+http://localhost:3001/user/follow/6225dfa772813a0b7bff2fa5/6225dfa772813a0b7bff2fa5
