@@ -4,10 +4,22 @@ import axios from 'axios'
 import bodyParser from 'body-parser';
 import audit from 'express-requests-logger'
 import logger from 'bunyan'
+
+
 const jsonParser = bodyParser.json()
 const api =  (app, options) => {
   const {repo} = options
 
+  // rate limiting
+  const rates = config.rates
+
+  //Rate limiting the auth service
+  app.use('/auth', rates.authApiLimiter)
+
+  //Rate limiting the user service
+  app.use('/user', rates.userApiLimiter)
+
+  
 
 
   app.use(audit({
