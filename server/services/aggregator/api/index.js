@@ -9,17 +9,23 @@ import logger from 'bunyan'
 const jsonParser = bodyParser.json()
 const api =  (app, options) => {
   const {repo} = options
-
+  
   // rate limiting
-  const rates = config.rates
+  const authApiLimiter = config.authApiLimiter
+
+  const userApiLimiter = config.userApiLimiter
+
+  const streamingApiLimiter = config.streamingApiLimiter
 
   //Rate limiting the auth service
-  app.use('/auth', rates.authApiLimiter)
+  app.use('/auth', authApiLimiter)
 
   //Rate limiting the user service
-  app.use('/user', rates.userApiLimiter)
+  app.use('/user', userApiLimiter)
 
-  
+  //Rate limiting the user service
+  app.use('/streaming', streamingApiLimiter)
+
 
 
   app.use(audit({

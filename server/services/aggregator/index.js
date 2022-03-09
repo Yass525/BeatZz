@@ -4,7 +4,7 @@ import config from './config/index.js'
 
 const eventEmitter = new events()
 console.log('--- Aggregator ---')
-console.log(config)
+//console.log(config)
 process.on('uncaughtException', (err) => {
   console.error('Unhandled Exception', err)
 })
