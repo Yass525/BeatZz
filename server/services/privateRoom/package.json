@@ -1,11 +1,20 @@
 {
-  "name": "privateroom",
+  "name": "chatroom",
   "version": "1.0.0",
-  "description": "Full Authentication and Authorization system with nodejs mongodb express using access and refresh token",
+  "description": "Realtime chat app with rooms",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app",
+    "dev":"nodemon app"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "ichraf ayari",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "moment": "^2.29.1",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }

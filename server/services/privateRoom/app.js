@@ -1,57 +1,62 @@
-const express = require('express')
-const morgan = require ('morgan')
-const creteError = require ('http-errors')
-const rateLimit = require('express-rate-limit')
-const helmet = require('helmet')
+const path = require('path');
+const http = require('http');
+const socketio = require('socket.io');
+const express = require('express');
+const formatMessage = require('./Routes/messages');
+const {userJoin, getCurrentUser,userLeave,getRoomUsers} = require('./Routes/users');
 
-require('dotenv').config({ path: '../../.env' })
 
-require('../../db')
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 
-const profileRoute = require('./Routes/profile.route')
-const paymentRoute = require('./Routes/payment.route')
+app.use(express.static(path.join(__dirname, 'public')));
+const botName ='ChatCord Bot';
 
-const limiter = rateLimit({
-    max:5,
-    windowMs: 1 * 60 * 1000,
-    standardHeaders: true,
-	legacyHeaders: false, 
-})
+io.on('connection', socket => {
+    socket.on('joinRoom', ({ username, room})=>{
+    const user = userJoin(socket.id, username, room);
+    socket.join(user.room);
+    
+        
 
-const app = express()
-app.use(morgan('dev'))
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use(limiter)
-app.use(helmet.xssFilter());
-app.use(helmet.hsts());
+        socket.emit('message',formatMessage(botName, 'welcome to chatcord '));
+        socket.broadcast
+        .to(user.room)
+        .emit('message',formatMessage(botName, `${user.username} has joined the chat`));
 
-app.use('/user', profileRoute)
-app.use('/payment', paymentRoute)
+        io.to(user.room).emit('roomUsers',{
+            room: user.room,
+            users: getRoomUsers(user.room)
+        });
 
-app.get('/', (req, res) => {
-  res.send('user service')
-})
+    });
 
-app.use(async(req,res,next)=>{
-    // const error = new Error ("Not found")
-    // error.status = 404
-    // next(error)
-    next(creteError.NotFound())
-})
 
-app.use((err,req,res,next)=>{
-    res.status(err.status || 500)
-    res.send({
-        error :{
-            status: err.status || 500,
-            message: err.message,
-        }
-    })
-})
+    socket.on('chatMessage',msg => {
+        const user = getCurrentUser(socket.id);
+        //console.log(msg);
+    io.to(user.room).emit('message',formatMessage(user.username,msg));
+    });
 
- const PORT =  3001
+socket.on('disconnect',()=>{
+    const user = userLeave(socket.id);
+    if(user){
+        io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`));
+        io.to(user.room).emit('roomUsers',{
+            room: user.room,
+            users: getRoomUsers(user.room)
+        });
+    }
+  
+});
 
- app.listen(PORT,()=>{
-     console.log("server running on port "+PORT)
- })
+
+
+
+});
+
+const PORT = 3000 || process.env.PORT;
+server.listen(PORT,()=> console.log(`Server running on ${PORT}`));
+
+//npm run dev
