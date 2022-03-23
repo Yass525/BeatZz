@@ -19,13 +19,16 @@ const UserSchema = new Schema({
         unique: true
     },
     profile: {
-        firstName: String,
-        lastName: String,
-        avatar: String,
-        bio: String,
-        birthday: Date
+        firstName: { type: String,  },
+        lastName: { type: String,  },
+        avatar: { type: String,  },
+        bio: { type: String,  },
+        birthday: { type: Date}
     },
-    follows: [Schema.Types.ObjectId],
+    follows: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }],
     followers: [Schema.Types.ObjectId],
     status: { type: Boolean, default: true },
     accType: {

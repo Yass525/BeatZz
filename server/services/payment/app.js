@@ -4,13 +4,16 @@ const creteError = require ('http-errors')
 const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
 
-require('dotenv').config({ path: '../../.env' })
-//require('./helpers/init_mongodb')
-require('../../db')
-const { verifyAccessToken } = require('./helpers/jwt_helper')
-const { verifyUserRole } = require('./helpers/jwt_helper')
 
-const AuthRoute = require('./Routes/Auth.route')
+require('dotenv').config({ path: '../../.env' })
+
+require('../../db')
+
+
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+const stripePublicKey = process.env.STRIPE_PUBLIC_KEY
+
+const paymentRoute = require('./Routes/payment.route')
 
 const limiter = rateLimit({
     max:5,
@@ -27,24 +30,14 @@ app.use(limiter)
 app.use(helmet.xssFilter());
 app.use(helmet.hsts());
 
-app.get('/', verifyAccessToken, async(req,res,next)=>{
-     res.send("basic user")
-})
+app.use('/payment', paymentRoute)
 
-app.get('/admin', verifyAccessToken, verifyUserRole('ADMIN'), async(req,res,next)=>{
-    res.send("admin user")
+app.get('/', (req, res) => {
+  res.send('payment service')
 })
-
-app.get('/premium', verifyAccessToken, verifyUserRole('PREMIUM_USER'), async(req,res,next)=>{
-    res.send("admin user")
-})
-
-app.use('/auth', AuthRoute)
 
 app.use(async(req,res,next)=>{
-    // const error = new Error ("Not found")
-    // error.status = 404
-    // next(error)
+   
     next(creteError.NotFound())
 })
 
@@ -58,7 +51,7 @@ app.use((err,req,res,next)=>{
     })
 })
 
- const PORT =  3000
+ const PORT =  3006
 
  app.listen(PORT,()=>{
      console.log("server running on port "+PORT)

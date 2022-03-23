@@ -1,0 +1,12 @@
+
+
+###
+POST http://localhost:3006/payment/purchase/
+Content-Type: application/json
+
+{
+    "email" : "yassine30eee@gmail.com",
+    "name" : "yassine",
+    "amount": "10",
+   
+}
