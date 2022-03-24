@@ -3,12 +3,14 @@ const morgan = require ('morgan')
 const creteError = require ('http-errors')
 const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
+const cron = require('node-cron');
 
 require('dotenv').config({ path: '../../.env' })
 
 require('../../db')
 
-const exempleRoute = require('./Routes/exemple.route')
+const modelToCSV = require('./Routes/modelToCSV.route')
+const generateCSV = require('./helpers/generateCSV')
 
 const limiter = rateLimit({
     max:5,
@@ -29,7 +31,14 @@ app.get('/', async(req,res,next)=>{
      res.send("basic user")
 })
 
-app.use('/exemple', exempleRoute)
+app.use('/modelToCSV', modelToCSV)
+
+cron.schedule('* * * * *', function() {
+    console.log('running a task every minute');
+  });
+
+//Cron every night at midnight
+cron.schedule('0 0 * * *', generateCSV.generate);
 
 app.use(async(req,res,next)=>{
     // const error = new Error ("Not found")
