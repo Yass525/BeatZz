@@ -1,11 +1,21 @@
 {
-  "name": "streaming",
+  "name": "lyrics",
   "version": "1.0.0",
-  "description": "Full Authentication and Authorization system with nodejs mongodb express using access and refresh token",
-  "main": "app.js",
+  "description": "Scrapping app",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "aplay": "^1.2.0",
+    "body-parser": "^1.19.2",
+    "cheerio": "^1.0.0-rc.10",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.4",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  }
 }
