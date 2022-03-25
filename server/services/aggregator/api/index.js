@@ -79,9 +79,27 @@ const api =  (app, options) => {
     //const response = await request(uri)
    
     axios.post(uri,req.body).then(r=>{
-      //console.log("============== RESPONSE =============")
-      //console.log(r.data)
+      //console.log("============== RESPONSE DATA =============")
+      console.log(r.data)
+      //console.log("============== FULL  STATUS  ============")
+     
+      if(r.data.accessToken){
       res.json(r.data)
+      }
+
+      if(r.response.status != 200){
+        res.status(r.response.status).send("An error has occured")
+      }
+    }).catch(r=>{
+      if(!r)
+      return
+      console.log("=================catch=================")
+      console.log(r)
+      if(r.response.status == 400){
+        res.status(r.response.status).send("Account not found")
+      }else{
+        res.status(r.response.status).send("An error has occured!")
+      }
     })
     
   })
