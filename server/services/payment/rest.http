@@ -7,6 +7,8 @@ Content-Type: application/json
 {
     "email" : "yassine30eee@gmail.com",
     "name" : "yassine",
-    "amount": "10",
-   
+    "amount": "10"  
 }
+
+###
+http://localhost:3006/payment/checkout
