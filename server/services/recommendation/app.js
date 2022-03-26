@@ -33,12 +33,9 @@ app.get('/', async(req,res,next)=>{
 
 app.use('/modelToCSV', modelToCSV)
 
-cron.schedule('* * * * *', function() {
-    console.log('running a task every minute');
-  });
-
 //Cron every night at midnight
 cron.schedule('0 0 * * *', generateCSV.generate);
+cron.schedule('0 0 * * *', generateCSV.generateMusic);
 
 app.use(async(req,res,next)=>{
     // const error = new Error ("Not found")

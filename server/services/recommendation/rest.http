@@ -1,6 +1,6 @@
 
 ###
-GET http://localhost:3001/modelToCSV/csv
+GET http://localhost:3001/modelToCSV/recommend/10
 
 ###
 POST http://localhost:3001/modelToCSV/

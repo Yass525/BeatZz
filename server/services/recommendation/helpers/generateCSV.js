@@ -1,11 +1,7 @@
-const express = require('express')
-const router = express.Router()
 var XLSX = require('xlsx');
-const download = require('download');
-const fs = require('fs');
-const https = require('https');
 
 const LS = require('../../../models/ListenedSong');
+const song = require('../../../models/Song');
 
 module.exports = {
     generate: async () => {
@@ -18,6 +14,26 @@ module.exports = {
             temp = JSON.parse(temp);
             var ws = XLSX.utils.json_to_sheet(temp);
             var down = 'public/triplets_file.csv'
+            XLSX.utils.book_append_sheet(wb, ws, "sheet1");
+            XLSX.writeFile(wb, down);
+     
+            
+        } catch (error) {
+            console.log(error.message)
+        }
+    
+    },
+
+    generateMusic: async () => {
+        var wb = XLSX.utils.book_new();
+    
+        try {
+            const data = await song.find({}).select({ _id: 0, song_id: 1, title: 1, release: 1, artist_name: 1 })
+    
+            var temp = JSON.stringify(data);
+            temp = JSON.parse(temp);
+            var ws = XLSX.utils.json_to_sheet(temp);
+            var down = 'public/song_data.csv'
             XLSX.utils.book_append_sheet(wb, ws, "sheet1");
             XLSX.writeFile(wb, down);
      
