@@ -1,38 +1,47 @@
 const express = require('express')
 const router = express.Router()
-const spawn = require('child_process').spawn;
+const {spawn} = require('child_process');
+
+let PythonShellLibrary = require('python-shell');
+let {PythonShell} = PythonShellLibrary;
 
 const Ls = require('../../../models/ListenedSong')
-//generate random data using faker 
-router.get('/recommend/:id', async (req, res) => {
 
+
+router.get('/recommend/:id', async (req, res) => {
+   
    try {
-      let stringifiedData = JSON.stringify(req.params['id']);
-      const py = spawn('python3', ['../helpers/recommenders.py', stringifiedData], {
-         detached: true,
+      //let stringifiedData = JSON.stringify(data);
+      const source = new PythonShell('./helpers/recommenders.py');
+      source.send(JSON.stringify([10]));
+
+      let resultData = ''
+      source.on('message', function (message) {
+         // received a message sent from the Python script (a simple "print" statement) 
+         var string1 = JSON.stringify(message);
+            resultData = JSON.parse(string1);
+            if (!res.headersSent) res.send(resultData)
+         // for (key in jsonParsedArray) {
+         //    if (jsonParsedArray.hasOwnProperty(key)) {
+         //        console.log("%c "+key + " = " + jsonParsedArray[key],"color:cyan");
+         //    }}
+           
      });
-      
-      resultString = '';
-      
-      // As the stdout data stream is chunked,
-      // we need to concat all the chunks.
-      py.stdout.on('data',  (stdData) => {
-         console.log(stdData)
-       
-         resultString += stdData.toString();
-      });
-      
-      py.stdout.on('end',  (stdData) => {
-         console.log("object")
-         // Parse the string as JSON when stdout
-         // data stream ends
-         let resultData = JSON.parse(resultString);
-         let song = resultData['song'];
-      
-         console.log(song)
-      });
+     
+     // end the input stream and allow the process to exit
+     source.end(function (err) {
+        if(err){
+         if (!res.headersSent) res.send(err.message)
+        }else{
+
+        }
+     })
+
+      console.log('recommendation is coming');
+
+     
    } catch (error) {
-      return res.status(500).json({ error: error.message });
+      if (!res.headersSent) res.status(500).json({ error: error.message });
    }
 
 

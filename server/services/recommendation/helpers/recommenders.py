@@ -1,3 +1,4 @@
+from tracemalloc import start
 import numpy as np
 import sys
 import json
@@ -7,7 +8,10 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 # Class for Popularity based Recommender System model
-
+def read_in():
+    lines = sys.stdin.readlines()
+    # Since our input would only be having one line, parse our JSON data from that
+    return json.loads(lines[0])
 class popularity_recommender_py():
     # @staticmethod
     def __init__(self):
@@ -55,6 +59,9 @@ class popularity_recommender_py():
         ##############################################
 
         return user_recommendations.song.to_json()
+    
+   
+
 
 
 song_df_1 = pd.read_csv(r'C:\Users\yassi\Documents\BeatZz\server\services\\recommendation\public\\triplets_file.csv', dtype={"user_id": "string", "song_id": "string", "listen_count": "string"})
@@ -77,8 +84,9 @@ pr=popularity_recommender_py()
 pr.create(song_df, 'user_id', 'song')
 
 # to nodeJS
-user_id = sys.argv[0]
-result=pr.recommend(song_df['user_id'][10])
+
+user_id = read_in()
+result=pr.recommend(song_df['user_id'][user_id[0]])
 newdata = {'song':result}
 print(json.dumps(newdata))
 
