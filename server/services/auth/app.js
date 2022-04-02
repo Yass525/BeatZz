@@ -11,6 +11,8 @@ const { verifyAccessToken } = require('./helpers/jwt_helper')
 const { verifyUserRole } = require('./helpers/jwt_helper')
 
 const AuthRoute = require('./Routes/Auth.route')
+const MailRoute = require('./Routes/Mailing.route')
+
 
 const limiter = rateLimit({
     max:5,
@@ -40,6 +42,8 @@ app.get('/premium', verifyAccessToken, verifyUserRole('PREMIUM_USER'), async(req
 })
 
 app.use('/auth', AuthRoute)
+app.use('/mailing', MailRoute)
+
 
 app.use(async(req,res,next)=>{
     // const error = new Error ("Not found")
