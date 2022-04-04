@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const  Schema  = mongoose.Schema;
-
+const {Schema}  = mongoose;
 
 const songSchema = new Schema({
-    title: {type: String, required: true},
+    title: {type: String, required: [true, "can't be blank"]},
     release: {type: String},
     duration: Number,
     content: String,
@@ -12,6 +11,5 @@ const songSchema = new Schema({
     image: String,
     nbrListens: Number,
     nbrLikes: Number
-
 });
 module.exports = mongoose.model("Song", songSchema);
