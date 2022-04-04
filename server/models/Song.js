@@ -1,19 +1,19 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose')
 
 const { Schema } = mongoose;
 
 
 const songSchema = new Schema({
     title: {type: String, required: [true, "can't be blank"]},
-    duration: int,
+    release:{type: String},
+    duration: Number,
     content: String,
     genre: [String],
-    artists: [Schema.Types.ObjectId],
+    artist_name: {type: String},
     image: String,
-    nbrListens: int,
-    nbrLikes: int
-        
+    nbrListens: Number,
+    nbrLikes: Number    
 });
 
 
-  module.exports = mongoose.model("Song", songSchema);
+module.exports = mongoose.model("Song", songSchema);

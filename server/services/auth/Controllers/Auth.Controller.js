@@ -3,6 +3,7 @@ const { authSchema } = require('../helpers/validationSchema')
 //const user = require('../Models/User.model')
 const user = require('../../../models/User')
 const { signAccessToken, signRefreshToken, verifyRefreshToken, verifyUserRole } = require('../helpers/jwt_helper')
+const { sender }= require('../helpers/Mailing.service')
 const bcrypt = require('bcrypt')
 
 module.exports = {
@@ -19,13 +20,13 @@ module.exports = {
            
             const accessToken = await signAccessToken(savedUser.id)
             const refreshToken = await signRefreshToken(savedUser.id)
+            sender(result.email,refreshToken,req.headers.host,result.username)
     
             res.send({accessToken, refreshToken })
         } catch (error) {
             if (error.isJoi === true) error.status = 422
             next(error)
-        }
-       
+        }      
     },
     
     login: async(req,res,next)=>{
