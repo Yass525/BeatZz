@@ -71,7 +71,6 @@ module.exports  ={
                 const userId = payload.audience
                 let user = await User.findById(userId)
 
-                console.log(user.ROLE)
                 resolve(userId)
             })
         })

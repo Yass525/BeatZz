@@ -9,7 +9,7 @@ require('dotenv').config({ path: '../../.env' })
 require('../../db')
 
 const profileRoute = require('./Routes/profile.route')
-const paymentRoute = require('./Routes/payment.route')
+
 
 const limiter = rateLimit({
     max:5,
@@ -26,12 +26,12 @@ app.use(limiter)
 app.use(helmet.xssFilter());
 app.use(helmet.hsts());
 
-app.get('/', async(req,res,next)=>{
-     res.send("basic user")
-})
-
 app.use('/user', profileRoute)
-app.use('/payment', paymentRoute)
+
+
+app.get('/', (req, res) => {
+  res.send('user service')
+})
 
 app.use(async(req,res,next)=>{
     // const error = new Error ("Not found")
@@ -50,7 +50,7 @@ app.use((err,req,res,next)=>{
     })
 })
 
- const PORT =  3001
+ const PORT =  3002
 
  app.listen(PORT,()=>{
      console.log("server running on port "+PORT)
