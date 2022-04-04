@@ -19,6 +19,9 @@ router.put('/unfollow/:idUser/:idUserToFollow',ProfileController.unfollow )
 router.get("/followers/:userId",ProfileController.getFollowers );
 router.get("/following/:userId", ProfileController.getFollowing );
 
+router.post("/confirmPasswordUpdate/:id",ProfileController.confirmPasswordUpdate );
+router.post("/resetPassword/:id",ProfileController.resetPassword );
+
 
 
 module.exports = router

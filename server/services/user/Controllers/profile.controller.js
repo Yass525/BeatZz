@@ -1,7 +1,7 @@
 const User = require('../../../models/User')
 const createError = require('http-errors')
 const { authSchema } = require('../helpers/validationSchema')
-const mongoose = require('mongoose')
+const { signAccessToken, signRefreshToken, verifyRefreshToken, verifyUserRole } = require('../helpers/jwt_helper')
 
 module.exports = {
 
@@ -180,6 +180,32 @@ module.exports = {
             } catch (err) {
               res.status(500).json(err.message);
             }
+          },
+
+          confirmPasswordUpdate: async (req, res) =>{
+            try {
+              const user = await User.findById(req.params['id'])
+              if (!user) throw createError.BadRequest("User not found")
+
+              const refreshToken = await signRefreshToken(savedUser.id)
+              sender(user.email,refreshToken,req.headers.host,user.username)
+            } catch (error) {
+              
+            }
+          },
+
+          resetPassword: async (req, res) =>{
+            // try {
+            //   const user = await User.findById(req.params['id'])
+            //   if (!user) throw createError.BadRequest("User not found")
+
+            //   const refreshToken = await signRefreshToken(savedUser.id)
+            //   sender(user.email,refreshToken,req.headers.host,user.username)
+            // } catch (error) {
+              
+            // }
           }
+
+
     
 }
