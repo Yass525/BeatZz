@@ -1,55 +1,57 @@
-const express = require('express')
-const morgan = require ('morgan')
-const creteError = require ('http-errors')
-const rateLimit = require('express-rate-limit')
-const helmet = require('helmet')
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const configDB = require('./db.json');
+const indexRouter = require('./Routes/index');
+const songsRouter = require('./Routes/song.route');
+const playlistRouter = require('./Routes/playlist.route');
+const adRouter = require('./Routes/ad.route');
+const mongoose = require('mongoose');
+const app = express();
+// Middleware
+app.use(bodyParser.json());
+app.use(methodOverride('_method'));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', indexRouter);
+app.use('/songs', songsRouter);
+app.use('/playlists', playlistRouter);
+app.use('/ads', adRouter);
+//Mongo config
+const mongoURI = configDB.mongo.uri;
+console.log(mongoURI)
+mongoose.connect(
+    mongoURI,
+    { useNewUrlParser: true , useUnifiedTopology: true },
+    ()=> console.log("Connected to DataBase "+configDB.mongo.name));
+// const conn = mongoose.connection;
+// conn.on('error', error => console.error(error));
+// conn.once('open', () => console.log('Connected to Mongoose'));
 
-require('dotenv').config({ path: '../../.env' })
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    next(createError(404));
+});
 
-require('../../db')
+// error handler
+app.use(function (err, req, res) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-const exempleRoute = require('./Routes/exemple.route')
-
-const limiter = rateLimit({
-    max:5,
-    windowMs: 1 * 60 * 1000,
-    standardHeaders: true,
-	legacyHeaders: false, 
-})
-
-const app = express()
-app.use(morgan('dev'))
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use(limiter)
-app.use(helmet.xssFilter());
-app.use(helmet.hsts());
-
-app.get('/', async(req,res,next)=>{
-     res.send("basic user")
-})
-
-app.use('/exemple', exempleRoute)
-
-app.use(async(req,res,next)=>{
-    // const error = new Error ("Not found")
-    // error.status = 404
-    // next(error)
-    next(creteError.NotFound())
-})
-
-app.use((err,req,res,next)=>{
-    res.status(err.status || 500)
-    res.send({
-        error :{
-            status: err.status || 500,
-            message: err.message,
-        }
-    })
-})
-
- const PORT =  3001
-
- app.listen(PORT,()=>{
-     console.log("server running on port "+PORT)
- })
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+});
+const PORT =  3000
+app.listen(PORT,()=>{console.log("server running on port "+PORT)})
+module.exports = app;
