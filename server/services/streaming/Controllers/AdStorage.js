@@ -1,9 +1,9 @@
 const {GridFsStorage} = require("multer-gridfs-storage");
-const configDB = require("../mongodb/data/mongodb.json");
 const multer = require("multer");
+const configDB = require("../db.json");
 
 const storage = new GridFsStorage({
-    url: configDB.mongo.uri,
+    url:configDB.mongo.uri,
     file: (req, file) => {
         return new Promise((resolve, reject) => {
             let fileInfo;

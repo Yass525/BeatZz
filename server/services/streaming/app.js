@@ -5,16 +5,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const configDB = require('./db.json');
 const indexRouter = require('./Routes/index');
 const songsRouter = require('./Routes/song.route');
 const playlistRouter = require('./Routes/playlist.route');
 const adRouter = require('./Routes/ad.route');
-
-//import database
 const mongoose = require('mongoose');
-const configDB = require('./mongodb/data/mongodb.json');
 const app = express();
-
 // Middleware
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
@@ -29,13 +26,13 @@ app.use('/', indexRouter);
 app.use('/songs', songsRouter);
 app.use('/playlists', playlistRouter);
 app.use('/ads', adRouter);
-
 //Mongo config
 const mongoURI = configDB.mongo.uri;
+console.log(mongoURI)
 mongoose.connect(
     mongoURI,
     { useNewUrlParser: true , useUnifiedTopology: true },
-    ()=> console.log("Connected to DataBase "));
+    ()=> console.log("Connected to DataBase "+configDB.mongo.name));
 // const conn = mongoose.connection;
 // conn.on('error', error => console.error(error));
 // conn.once('open', () => console.log('Connected to Mongoose'));
@@ -55,5 +52,6 @@ app.use(function (err, req, res) {
     res.status(err.status || 500);
     res.render('error');
 });
-
+const PORT =  3000
+app.listen(PORT,()=>{console.log("server running on port "+PORT)})
 module.exports = app;
