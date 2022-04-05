@@ -34,12 +34,13 @@ app.use('/songs', songsRouter);
 app.use('/playlists', playlistRouter);
 app.use('/ads', adRouter);
 //Mongo config
-const mongoURI = configDB.mongo.uri;
-console.log(mongoURI)
-mongoose.connect(
-    mongoURI,
-    { useNewUrlParser: true , useUnifiedTopology: true },
-    ()=> console.log("Connected to DataBase "+configDB.mongo.name));
+// const mongoURI = configDB.mongo.uri;
+// console.log(mongoURI)
+// mongoose.connect(
+//     mongoURI,
+//     { useNewUrlParser: true , useUnifiedTopology: true },
+//     ()=> console.log("Connected to DataBase "+configDB.mongo.name));
+
 // const conn = mongoose.connection;
 // conn.on('error', error => console.error(error));
 // conn.once('open', () => console.log('Connected to Mongoose'));
