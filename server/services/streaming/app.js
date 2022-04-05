@@ -14,6 +14,9 @@ const mongoose = require('mongoose');
 const app = express();
 
 
+require('dotenv').config({ path: '../../.env' })
+require('../../db')
+
 // Middleware
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
