@@ -12,6 +12,8 @@ const playlistRouter = require('./Routes/playlist.route');
 const adRouter = require('./Routes/ad.route');
 const mongoose = require('mongoose');
 const app = express();
+
+
 // Middleware
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
@@ -22,6 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 app.use('/', indexRouter);
 app.use('/songs', songsRouter);
 app.use('/playlists', playlistRouter);
