@@ -2,3 +2,6 @@ GET http://localhost:3005/search/getmusic
 
 ###
 GET http://localhost:3005/scrap/getmusic/till i collapse
+
+###
+GET http://localhost:3005/songs/get-songs

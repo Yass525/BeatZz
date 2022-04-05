@@ -44,22 +44,20 @@ module.exports = {
     },
     // GET all the songs in the songs collection
     getAllSongs : async (req, res) => {
-        const songs = await Song.find();
-        if (songs.length === 0) {
-            return res.status(200).json({
-                success: true,
-                message: 'No Songs available'
-            });
-        }
-        res.status(200).json({
-            success: true,
-            SongsFound: songs.length,
-            Songs: songs,
+        await Song.find().limit(100)
+        .then(data => {
+          res.send({song : data});
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving songs."
+          });
         });
     },
     // GET all the files ( images and tracks)
     getAllFiles : async (req, res) => {
-        await bucket.find().toArray((err, files) => {
+        await bucket.find().limit(100).toArray((err, files) => {
             if (!files || files.length === 0) {
                 return res.status(404).json({
                     success: false,
