@@ -5,17 +5,21 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+
 const configDB = require('./db.json');
+const mongoose = require('mongoose');
+
+const app = express();
+
+const scrapRoute =require ('./Routes/scrap.route');
+const searchRoute =require ('./Routes/search.route');
 const indexRouter = require('./Routes/index');
 const songsRouter = require('./Routes/song.route');
 const playlistRouter = require('./Routes/playlist.route');
 const adRouter = require('./Routes/ad.route');
-const mongoose = require('mongoose');
-const app = express();
-
 
 require('dotenv').config({ path: '../../.env' })
-require('../../db')
+// require('../../db')
 
 // Middleware
 app.use(bodyParser.json());
@@ -33,13 +37,16 @@ app.use('/', indexRouter);
 app.use('/songs', songsRouter);
 app.use('/playlists', playlistRouter);
 app.use('/ads', adRouter);
+app.use('/scrap',scrapRoute);
+app.use('/search',searchRoute);
+
 //Mongo config
-// const mongoURI = configDB.mongo.uri;
-// console.log(mongoURI)
-// mongoose.connect(
-//     mongoURI,
-//     { useNewUrlParser: true , useUnifiedTopology: true },
-//     ()=> console.log("Connected to DataBase "+configDB.mongo.name));
+const mongoURI = configDB.mongo.uri;
+console.log(mongoURI)
+mongoose.connect(
+    mongoURI,
+    { useNewUrlParser: true , useUnifiedTopology: true },
+    ()=> console.log("Connected to DataBase "+configDB.mongo.name));
 
 // const conn = mongoose.connection;
 // conn.on('error', error => console.error(error));
