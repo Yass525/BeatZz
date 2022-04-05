@@ -12,7 +12,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email":"yassine@gmail.com",
+    
+    "email":"bzbzbzbz@google.com",
     "password": "password"
 } 
 
@@ -21,8 +22,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "username":"sonokej36",
-    "email":"sonokej361@karavic.com",
+    "username":"bzbzb",
+    "email":"bzbzbzbz@google.com",
     "password": "password"
 }
 
@@ -43,5 +44,14 @@ Content-Type: application/json
 {
     "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWRpZW5jZSI6IjYyMjRiMmViNWJiMzVjNjlmN2RlODZjNyIsImlhdCI6MTY0Nj
     U3Mjc0MiwiZXhwIjoxNjc4MTMwMzQyLCJpc3MiOiJCZWF0enouY29tIn0.raOfamUjZrrAQ70Y1MTxmHCNWgpYnPZShaklZ0UslQw"
+
+}
+
+###
+GET http://localhost:3000/auth/getIdFromAccessToken
+Content-Type: application/json
+
+{
+    "accessToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWRpZW5jZSI6IjYyNGM1ZmNlZmU1ZjE2ODY0ODZiZjZiMSIsImlhdCI6MTY0OTE3MjQzMCwiZXhwIjoxNjQ5MjU4ODMwLCJpc3MiOiJCZWF0enouY29tIn0.7hXcZXjtwThs8YfZgpEFyFqlabLX5U8n2sGvUkO5_Fg"
 
 }
