@@ -1,11 +1,11 @@
 const {GridFsStorage} = require("multer-gridfs-storage");
 const multer = require("multer");
 const configDB = require('../db.json');
-// require('dotenv').config({ path: '../../../.env' })
+
 
 const storage = new GridFsStorage({
-    // url: process.env.MONGODB_URL,
-    url: configDB.mongo.uri,
+    //url: configDB.mongo.uri,
+    url: process.env.MONGODB_URL,
     file: (req, file) => {
         return new Promise((resolve, reject) => {
             let fileInfo;

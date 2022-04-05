@@ -10,6 +10,8 @@ const songSchema = new Schema({
     artists: [Schema.Types.ObjectId],
     image: String,
     nbrListens: Number,
-    nbrLikes: Number
+    nbrLikes: Number,
+    // artist name is just for recommendation test
+    artist_name: {type: String},
 });
 module.exports = mongoose.model("Song", songSchema);

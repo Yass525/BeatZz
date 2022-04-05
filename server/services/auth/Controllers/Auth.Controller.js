@@ -2,7 +2,7 @@ const createError = require('http-errors')
 const { authSchema } = require('../helpers/validationSchema')
 //const user = require('../Models/User.model')
 const user = require('../../../models/User')
-const { signAccessToken, signRefreshToken, verifyRefreshToken, verifyUserRole } = require('../helpers/jwt_helper')
+const { signAccessToken, signRefreshToken, verifyRefreshToken, verifyUserRole, UserIdFromAccessToken } = require('../helpers/jwt_helper')
 const { sender }= require('../helpers/Mailing.service')
 const bcrypt = require('bcrypt')
 
@@ -79,5 +79,16 @@ module.exports = {
         } catch (error) {
             next(error)
         }
-    }
+    },
+
+    getIdFromAccessToken: async(req,res,next)=>{
+        try {
+            let { accessToken } = req.body
+            let userId = await UserIdFromAccessToken(accessToken)
+            res.send(userId)
+            
+        } catch (error) {
+            next(error)
+        }
+    },
 }
