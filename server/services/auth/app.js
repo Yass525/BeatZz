@@ -12,6 +12,10 @@ const { verifyUserRole } = require('./helpers/jwt_helper')
 
 const AuthRoute = require('./Routes/Auth.route')
 
+
+//const MailRoute = require('./Routes/Mailing.route')
+
+
 const limiter = rateLimit({
     max:5,
     windowMs: 1 * 60 * 1000,
@@ -40,6 +44,8 @@ app.get('/premium', verifyAccessToken, verifyUserRole('PREMIUM_USER'), async(req
 })
 
 app.use('/auth', AuthRoute)
+//app.use('/mailing', MailRoute)
+
 
 app.use(async(req,res,next)=>{
     next(creteError.NotFound())
@@ -55,7 +61,7 @@ app.use((err,req,res,next)=>{
     })
 })
 
- const PORT =  3000
+ const PORT =  3001
 
  app.listen(PORT,()=>{
      console.log("server running on port "+PORT)

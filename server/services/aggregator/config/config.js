@@ -1,5 +1,5 @@
 const serverSettings = {
-    port: process.env.PORT || 2999
+    port: process.env.PORT || 3000
     //ssl: require('./ssl')
   }
 
@@ -7,7 +7,7 @@ const servicesSettings = {
   services:{
     auth:{
       url:"http://localhost",
-      port:3000
+      port:3001
     },
     streaming:{
     url:"http://localhost",
