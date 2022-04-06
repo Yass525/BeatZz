@@ -1,4 +1,5 @@
 const Stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const User = require('../../../models/User')
 
 module.exports = {
     purchase: async (req, res) => {
@@ -29,7 +30,14 @@ module.exports = {
                
               })
             )
-            .then(() => console.log('Charge created successfully'))
+            .then(async () => {
+              console.log('Charge created successfully')
+              const filter = { name: 'Jean-Luc Picard' };
+              const update = { accType: 'PREMIUM' };
+              const user = await User.findOneAndUpdate(filter, update);
+              res.send(user.email+' is premium user now')
+            }) 
+            
             .catch(err => console.log(err));
         } catch (err) {
           res.send(err.message);
