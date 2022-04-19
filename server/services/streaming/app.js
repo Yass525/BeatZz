@@ -6,11 +6,9 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
-const configDB = require('./db.json');
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '../../.env' })
 require('../../db')
-
 
 const scrapRoute =require ('./Routes/scrap.route');
 const searchRoute =require ('./Routes/search.route');
@@ -18,8 +16,6 @@ const indexRouter = require('./Routes/index');
 const songsRouter = require('./Routes/song.route');
 const playlistRouter = require('./Routes/playlist.route');
 const adRouter = require('./Routes/ad.route');
-
-
 
 // Middleware
 const app = express();
@@ -32,7 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.use('/', indexRouter);
 app.use('/songs', songsRouter);

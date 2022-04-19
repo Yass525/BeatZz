@@ -1,6 +1,5 @@
 {
     "mongo":{
-        "uri":"mongodb://localhost:27017/fileupload",
-        "name" : "fileupload"
+        "uri":"mongodb+srv://memoryMern:megaman500@realmcluster.xqs34.mongodb.net/memoryMern?retryWrites=true&w=majority"
     }
 }

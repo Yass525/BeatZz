@@ -1,13 +1,15 @@
+require('dotenv').config({ path: '../../../env' })
 const Song = require("../../../models/Song");
 const mongoose = require("mongoose");
 
 // Init GridFS bucket
 const conn = mongoose.connection;
+conn.openUri(process.env.MONGODB_URL)
 let bucket;
 conn.once('open', () => {
     // Init stream
     bucket = new mongoose.mongo.GridFSBucket(conn.db, {
-        bucketName: "uploads"
+        bucketName: "songsFiles"
     });
 });
 
