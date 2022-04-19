@@ -100,3 +100,9 @@ GET http://localhost:3002/ads/get-audio/623e8a509009d170185b2c7b
 ###
 GET http://localhost:3002/ads/get-image/623e8a509009d170185b2c7b
 
+###
+GET http://localhost:3005/search/getmusic
+
+###
+GET http://localhost:3005/scrap/getmusic/till i collapse
+

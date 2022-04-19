@@ -63,6 +63,6 @@ app.use(function (err, req, res) {
     res.status(err.status || 500);
     res.render('error');
 });
-const PORT =  3005
+const PORT =  3002
 app.listen(PORT,()=>{console.log("server running on port "+PORT)})
 module.exports = app;
