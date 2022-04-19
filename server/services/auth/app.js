@@ -3,6 +3,7 @@ const morgan = require ('morgan')
 const creteError = require ('http-errors')
 const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
+const cors = require('cors')
 
 require('dotenv').config({ path: '../../.env' })
 //require('./helpers/init_mongodb')
@@ -30,6 +31,10 @@ app.use(express.urlencoded({extended:true}))
 app.use(limiter)
 app.use(helmet.xssFilter());
 app.use(helmet.hsts());
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.get('/', verifyAccessToken, async(req,res,next)=>{
      res.send("basic user")

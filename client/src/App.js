@@ -1,5 +1,9 @@
-import { Fragment } from "react";
+
+import { Fragment, useEffect, useRef } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "./redux/userSlice/apiCalls";
+
 import PrivateRoute from "./PrivateRoute";
 import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
@@ -18,8 +22,29 @@ import LikedSongs from "./pages/LikedSongs";
 import Profile from "./pages/Profile";
 
 const App = () => {
-	const user = true;
+	require('dotenv').config();
+	const dispatch = useDispatch();
 	const location = useLocation();
+	const { user } = useSelector((state) => state.auth);
+
+	useEffect(() => {
+		let token = null;
+		const root = JSON.parse(window.localStorage.getItem("persist:root"));
+
+		if (root) {
+			const { auth } = root;
+			const { user } = JSON.parse(auth);
+			
+			if (user) token = user.token;
+		}
+
+		if (user && token) {
+			
+			getUser(user.audience, dispatch);
+				
+		}
+	}, [dispatch, user]);
+
 
 	return (
 		<Fragment>
@@ -57,7 +82,7 @@ const App = () => {
 						<Sidebar />
 						<AudioPlayer />
 					</Fragment>
-				)} 
+				)}
 
 			
 			<Switch>

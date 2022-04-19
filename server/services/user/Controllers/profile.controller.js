@@ -22,7 +22,7 @@ module.exports = {
             try {
               const user = await User.findById(req.params['id'])
               if (!user) throw createError.BadRequest("User not found")
-              else res.send(user)
+              else res.send({data : user})
             } catch (error) {
               next(error);
             }

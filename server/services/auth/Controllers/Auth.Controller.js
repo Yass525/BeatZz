@@ -31,6 +31,7 @@ module.exports = {
     
     login: async(req,res,next)=>{
         try {
+           console.log(req.body)
              const result = await authSchema.validateAsync(req.body)
              const User = await user.findOne({ email: result.email})
      
