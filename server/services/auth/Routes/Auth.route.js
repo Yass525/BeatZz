@@ -10,4 +10,6 @@ router.delete('/logout', AuthController.logout)
 router.post('/refresh-token', AuthController.refreshToken)
 router.get('/getIdFromAccessToken', AuthController.getIdFromAccessToken)
 
+router.get('/mailing/confirmation/:token', AuthController.ConfirmAccount)
+
 module.exports = router

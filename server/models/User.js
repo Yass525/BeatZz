@@ -30,7 +30,7 @@ const UserSchema = new Schema({
         ref: 'User'
       }],
     followers: [Schema.Types.ObjectId],
-    status: { type: Boolean, default: true },
+    isVerified: { type: Boolean, default: false },
     accType: {
         type: String,
         enum: ['FREE', 'PREMIUM', 'TRIAL'],

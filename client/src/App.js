@@ -20,6 +20,7 @@ import Playlist from "./pages/Playlist";
 import Search from "./pages/Search";
 import LikedSongs from "./pages/LikedSongs";
 import Profile from "./pages/Profile";
+import payment from "./pages/Payment";
 
 const App = () => {
 	require('dotenv').config();
@@ -102,6 +103,7 @@ const App = () => {
 					component={Library}
 				/>
 				<PrivateRoute exact user={user} path="/search" component={Search} />
+				<PrivateRoute exact user={user} path="/payment" component={payment} />
 				<PrivateRoute
 					exact
 					user={user}

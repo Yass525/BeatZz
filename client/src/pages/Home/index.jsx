@@ -8,6 +8,8 @@ import peaches from "../../images/peaches.jpg";
 const playlists = [
 	{ _id: 1, img: playlistImg, name: "Today's Top Songs", desc: "By Jahangeer" },
 ];
+
+
 const songs = [
 	{ _id: 1, img: peaches, name: "Peaches", artist: "Justin Bieber" },
 	{ _id: 2, img: peaches, name: "Peaches", artist: "Justin Bieber" },

@@ -3,7 +3,7 @@ const { authSchema } = require('../helpers/validationSchema')
 //const user = require('../Models/User.model')
 const user = require('../../../models/User')
 const { signAccessToken, signRefreshToken, verifyRefreshToken, verifyUserRole, UserIdFromAccessToken } = require('../helpers/jwt_helper')
-const { sender }= require('../helpers/Mailing.service')
+const { sender, confirmEmail }= require('../helpers/Mailing.service')
 const bcrypt = require('bcrypt')
 
 module.exports = {
@@ -92,4 +92,13 @@ module.exports = {
             next(error)
         }
     },
+
+    ConfirmAccount: async(req,res,next)=>{
+        try {
+            confirmEmail(req, res)
+            
+        } catch (error) {
+            next(error)
+        }
+    }
 }
