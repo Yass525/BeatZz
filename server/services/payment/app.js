@@ -3,6 +3,7 @@ const morgan = require ('morgan')
 const creteError = require ('http-errors')
 const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
+const cors = require ('cors')
 
 
 require('dotenv').config({ path: '../../.env' })
@@ -29,7 +30,9 @@ app.use(express.urlencoded({extended:true}))
 app.use(limiter)
 app.use(helmet.xssFilter());
 app.use(helmet.hsts());
-
+app.use(cors({
+    origin: '*'
+}));
 app.use('/payment', paymentRoute)
 
 app.get('/', (req, res) => {
