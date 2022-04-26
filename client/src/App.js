@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
+import Songs from "./pages/Songs";
 import Room from "./pages/Room";
 import Library from "./pages/Library";
 import Sidebar from "./components/Sidebar";
@@ -20,13 +21,16 @@ import Playlist from "./pages/Playlist";
 import Search from "./pages/Search";
 import LikedSongs from "./pages/LikedSongs";
 import Profile from "./pages/Profile";
+import UploadSong from "./pages/UploadSong";
+import AddPlaylist from "./pages/AddPlaylist";
 
 const App = () => {
 	require('dotenv').config();
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const { user } = useSelector((state) => state.auth);
-
+	// let { user } = useSelector((state) => state.auth);
+	// user = true;
 	useEffect(() => {
 		let token = null;
 		const root = JSON.parse(window.localStorage.getItem("persist:root"));
@@ -92,7 +96,7 @@ const App = () => {
 				<PrivateRoute
 					exact
 					user={user}
-					path="/collection/tracks"
+					path="/collection/liked-songs"
 					component={LikedSongs}
 				/>
 				<PrivateRoute
@@ -110,9 +114,27 @@ const App = () => {
 				/>
 				<PrivateRoute 
 					exact 
-					user={user} 
+					user={user}
 					path="/me" 
 					component={Profile} 
+				/>
+				<PrivateRoute
+					exact
+					user={user}
+					path="/songs/add"
+					component={UploadSong}
+				/>
+				<PrivateRoute
+					exact
+					user={user}
+					path="/collection/tracks"
+					component={Songs}
+				/>
+				<PrivateRoute
+					exact
+					user={user}
+					path="/collection/playlist/add"
+					component={AddPlaylist}
 				/>
 				{user && <Redirect from="/signup" to="/home" />}
 				{user && <Redirect from="/login" to="/home" />}

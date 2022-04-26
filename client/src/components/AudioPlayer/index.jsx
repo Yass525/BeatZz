@@ -5,10 +5,12 @@ import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import styles from "./styles.module.scss";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const AudioPlayer = () => {
 	return (
-		<div className={styles.audio_player}>
+		<div className={styles.audio_player} style={{marginTop:'150px'}}>
 			<div className={styles.left}>
 				<img src={peaches} alt="song_img" />
 				<div className={styles.song_info}>

@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const cors = require('cors');
 
 const mongoose = require('mongoose');
 require('dotenv').config({ path: '../../.env' })
@@ -19,6 +20,9 @@ const adRouter = require('./Routes/ad.route');
 
 // Middleware
 const app = express();
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.set('views', path.join(__dirname, 'views'));
@@ -35,6 +39,8 @@ app.use('/playlists', playlistRouter);
 app.use('/ads', adRouter);
 app.use('/scrap',scrapRoute);
 app.use('/search',searchRoute);
+
+
 
 //Mongo config
 // const mongoURI = configDB.mongo.uri;
