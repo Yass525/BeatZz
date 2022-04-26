@@ -12,7 +12,7 @@ let sender = async (userMail, token, host, username) => {
                 pass: 'uxlvsblrvqidodsv'
             },
         });
-        let link = '\nhttp:\/\/' + host + '\/mailing\/confirmation\/' + token 
+        let link = '\nhttp:\/\/' + host + '\/auth\/mailing\/confirmation\/' + token 
         // send mail with defined transport object
         let info = await transporter.sendMail({
             from: '"BeatzZ 👻" <yassine5255@gmail.com>', // sender address
@@ -30,13 +30,13 @@ let sender = async (userMail, token, host, username) => {
 
 }
 
-let confirmEmail = async (req, res, next) => {
+let confirmEmail = async (req, res) => {
     const token = (req.params.token)
 
     try {
         
         if (!token) {
-            return res.status(401).send({ msg: 'Your verification link may have expired. Please click on resend for verify your Email.' });
+            return res.status(401).send({ msg: 'Your verification link may have expired. Please click on resend to verify your Email.' });
         } else {
             const userId = await verifyRefreshToken(token)
             console.log(userId)

@@ -1,4 +1,7 @@
 import { useState } from "react";
+import StripeCheckout from "react-stripe-checkout";
+import { FormControl, InputAdornment, InputLabel, OutlinedInput  } from "@mui/material";
+import { toast } from "react-toastify";
 import Joi from "joi";
 import TextField from "../../components/Inputs/TextField";
 import Select from "../../components/Inputs/Select";
@@ -54,6 +57,21 @@ const Profile = () => {
 		e.preventDefault();
 		console.log(data);
 	};
+	
+
+  const handleToken = (token) => {
+    fetch("http://localhost:3006/payment/subscribes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token, amount : 3000}),
+    })
+    .then(res => res.json())
+    .then(_ => {
+      toast.success("Transaction successful, You are now a premium user", { autoClose: 4000, position: toast.POSITION.TOP_RIGHT });
+    }).catch(_ => toast.error("Transaction failed, please try again", { autoClose: 4000, position: toast.POSITION.TOP_RIGHT  }))
+  }
 
 	return (
 		<div className={styles.container}>
@@ -145,12 +163,16 @@ const Profile = () => {
 					/>
 				</div>
 				<div className={styles.submit_btn_wrapper}>
-					<Link to="/signup">
+				<form action="http://localhost:3006/payment/create-checkout-session" method="POST">
+				
 						<Button
 							label="GET BEATZZ PREMIUM"
 							style={{ backgroundColor:"#3eaba1",color: "#000", width: "25rem", fontSize: "1.4rem", }}
+							type="submit"
 						/>
-					</Link>
+				
+				</form>	
+				
 					<Button label="Update" type="submit" />
 				</div>
 				

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Joi from "joi";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import passwordComplexity from "joi-password-complexity";
 import TextField from "../../components/Inputs/TextField";
 import Select from "../../components/Inputs/Select";
@@ -16,51 +18,74 @@ const months = [
 	{ name: "January", value: "01" },
 	{ name: "February", value: "02" },
 	{ name: "March", value: "03" },
-	{ name: "Apirl", value: "04" },
+	{ name: "April", value: "04" },
 	{ name: "May", value: "05" },
 	{ name: "June", value: "06" },
 	{ name: "July", value: "07" },
-	{ name: "Augest", value: "08" },
+	{ name: "August", value: "08" },
 	{ name: "September", value: "09" },
 	{ name: "October", value: "10" },
 	{ name: "November", value: "11" },
 	{ name: "December", value: "12" },
 ];
 
-const genders = ["male", "female", "non-binary"];
+const genders = ["male", "female"];
 
 const SignUp = () => {
 	const [data, setData] = useState({
 		email: "",
 		password: "",
-		name: "",
-		month: "",
-		year: "",
-		date: "",
-	
+		username: "",	
 	});
 	const [errors, setErrors] = useState({});
+	const [isFetching, setIsFetching] = useState(false);
 
-	const handleInputState = (name, value) => {
-		setData((data) => ({ ...data, [name]: value }));
+	const history = useHistory();
+
+	const handleInputState = (username, value) => {
+		setData((data) => ({ ...data, [username]: value }));
 	};
 
-	const handleErrorState = (name, value) => {
+	const handleErrorState = (username, value) => {
 		value === ""
-			? delete errors[name]
-			: setErrors(() => ({ ...errors, [name]: value }));
+			? delete errors[username]
+			: setErrors(() => ({ ...errors, [username]: value }));
 	};
 
 	const schema = {
 		email: Joi.string().email({ tlds: false }).required().label("Email"),
 		password: passwordComplexity().required().label("Password"),
-		name: Joi.string().min(5).max(10).required().label("Name"),
+		username: Joi.string().min(4).max(10).required().label("Name"),
+		password_confirmation: Joi.any().equal(Joi.ref('password'))
+    		.required()
+    		.label('Confirm password')
+    		.messages({ 'any.only': '{{#label}} does not match' }),
+
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (Object.keys(errors).length === 0) {
-			console.log(data);
+			try {
+				setIsFetching(true);
+				const url = "http://localhost:3001/auth/register";
+				await axios.post(url, data);
+				setIsFetching(false);
+				toast.info("Account created successfully, Please confirm your mail address", { autoClose: 7000 });
+				history.push("/login");
+			} catch (error) {
+				setIsFetching(false);
+				if (
+					error.response &&
+					error.response.status >= 400 &&
+					error.response.status < 500
+				) {
+					toast.error("Something wrong happened, please try again");
+				} else {
+					console.log(error);
+					toast.error("Something went wrong!");
+				}
+			}
 		} else {
 			console.log("please fill out properly");
 		}
@@ -116,20 +141,34 @@ const SignUp = () => {
 						required={true}
 					/>
 				</div>
+				{/* <div className={styles.input_container}>
+					<TextField
+						label="Confirm your password"
+						placeholder="Confirm your password"
+						name="password_confirmation"
+						handleInputState={handleInputState}
+						schema={schema.password_confirmation}
+						handleErrorState={handleErrorState}
+						error={errors.password_confirmation}
+						type="password"
+						required={true}
+						
+					/>
+				</div> */}
 				<div className={styles.input_container}>
 					<TextField
 						label="What should we call you?"
-						placeholder="Enter a profile name"
-						name="name"
+						placeholder="Enter a username"
+						name="username"
 						handleInputState={handleInputState}
-						schema={schema.name}
+						schema={schema.username}
 						handleErrorState={handleErrorState}
-						value={data.name}
-						error={errors.name}
+						value={data.username}
+						error={errors.username}
 						required={true}
 					/>
 				</div>
-				<div className={styles.date_of_birth_container}>
+				{/* <div className={styles.date_of_birth_container}>
 					<p>What's your date of birth?</p>
 					<div className={styles.date_of_birth}>
 						<div className={styles.month}>
@@ -164,7 +203,7 @@ const SignUp = () => {
 							/>
 						</div>
 					</div>
-				</div>
+				</div> */}
 				{/* <div className={styles.input_container}>
 					<Radio
 						label="What's your gender?"
@@ -185,7 +224,7 @@ const SignUp = () => {
 					<a href="/#">BeatzZ's Privacy Policy.</a>
 				</p>
 				<div className={styles.submit_btn_wrapper}>
-					<Button label="Sign Up" type="submit" />
+					<Button label="Sign Up" type="submit"  isFetching={isFetching}/>
 				</div>
 				<p className={styles.terms_condition} style={{ fontSize: "1.6rem" }}>
 					Have an account? <Link to="/login"> Log in.</Link>
