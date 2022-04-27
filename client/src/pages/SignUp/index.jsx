@@ -67,6 +67,7 @@ const SignUp = () => {
 		e.preventDefault();
 		if (Object.keys(errors).length === 0) {
 			try {
+				console.log(data);
 				setIsFetching(true);
 				const url = "http://localhost:3001/auth/register";
 				await axios.post(url, data);

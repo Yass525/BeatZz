@@ -29,7 +29,15 @@ const Sidebar = () => {
 				activeClassName={styles.active_menu}
 			>
 				<SearchIcon />
-				<span>Search</span>
+				<span>Search Songs</span>
+			</NavLink>
+			<NavLink
+				to="/searchUsers"
+				className={styles.menu_link}
+				activeClassName={styles.active_menu}
+			>
+				<SearchIcon />
+				<span>Search Users</span>
 			</NavLink>
 			<NavLink
 				to="/collection/playlists"

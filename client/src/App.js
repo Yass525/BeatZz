@@ -17,9 +17,11 @@ import SidebarProfile from "./components/SidebarProfile";
 import Navbar from "./components/Navbar";
 import AudioPlayer from "./components/AudioPlayer";
 import Playlist from "./pages/Playlist";
+import SearchUsers from "./pages/SearchUser";
 import Search from "./pages/Search";
 import LikedSongs from "./pages/LikedSongs";
 import Profile from "./pages/Profile";
+import UserProfile from "./pages/UserProfile";
 import payment from "./pages/Payment";
 
 const App = () => {
@@ -63,7 +65,7 @@ const App = () => {
 				)
 			} */}
 
-			{/* if (location.pathname =="/me" && user){
+			{/* {  location.pathname == "/profile" && 
 				(
 					<Fragment>
 						<Navbar />
@@ -71,7 +73,7 @@ const App = () => {
 						<AudioPlayer />
 					</Fragment>
 				)
-			} */}
+			 } */}
 
 			 {user &&
 				location.pathname !== "/login" &&
@@ -115,6 +117,18 @@ const App = () => {
 					user={user} 
 					path="/me" 
 					component={Profile} 
+				/>
+				<PrivateRoute 
+					exact 
+					user={user} 
+					path="/profile/:id" 
+					component={UserProfile} 
+				/>
+				<PrivateRoute 
+					exact 
+					user={user} 
+					path="/searchUsers" 
+					component={SearchUsers}  
 				/>
 				{user && <Redirect from="/signup" to="/home" />}
 				{user && <Redirect from="/login" to="/home" />}
