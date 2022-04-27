@@ -37,7 +37,7 @@ const LikedSongs = () => {
 
 				{songs.map((song) => (
 					<Fragment key={song._id}>
-						<Song song={song} />
+						{/*<Song song={song} />*/}
 					</Fragment>
 				))}
 			</div>
