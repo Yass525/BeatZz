@@ -1,7 +1,7 @@
 .playlist {
 	width: 16rem;
 	padding: 2rem;
-	height: 29rem;
+	height: 26rem;
 	background-color: var(--mini-black);
 	border-radius: 1rem;
 	margin: 1rem;
@@ -27,7 +27,6 @@
 		display: -webkit-box;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		flex-direction: row;
 	}
 
 	&:hover {

@@ -9,6 +9,7 @@ const ProfileController = require('../Controllers/profile.Controller')
 
 router.get('/getAll',ProfileController.getAll )
 router.get('/getOne/:id',ProfileController.getOne )
+router.get('/getByUserName/:username',ProfileController.getOneByUserName )
 
 router.delete("/deleteUser/:id",ProfileController.delete);
 router.patch('/update/:id', ProfileController.update )
@@ -16,8 +17,8 @@ router.patch('/update/:id', ProfileController.update )
 router.put('/follow/:idUser/:idUserToFollow',ProfileController.follow )
 router.put('/unfollow/:idUser/:idUserToFollow',ProfileController.unfollow )
 
-router.get("/followers/:userId",ProfileController.getFollowers );
-router.get("/following/:userId", ProfileController.getFollowing );
+router.get("/followers/:id",ProfileController.getFollowers );
+router.get("/following/:id", ProfileController.getFollowing );
 
 router.post("/confirmPasswordUpdate/:id",ProfileController.confirmPasswordUpdate );
 router.post("/resetPassword/:id",ProfileController.resetPassword );

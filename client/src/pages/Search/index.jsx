@@ -1,27 +1,44 @@
-import { Fragment, useState } from "react";
-import Song from "../../components/Song";
-import Playlists from "../../components/Playlists";
+
+import { Fragment } from "react";
+import UserBar from "../../components/UserBar";
 import { IconButton } from "@mui/material";
 import peaches from "../../images/peaches.jpg";
-import playlistImg from "../../images/rock.jpg";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import styles from "./styles.module.scss";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { CircularProgress } from "@mui/material";
 
-const playlists = [
-	{ _id: 1, img: playlistImg, name: "Today's Top Songs", desc: "By Jahangeer" },
-];
+const SearchUser = () => {
 
-const songs = [
-	{ _id: 1, img: peaches, name: "Today's Top Songs", artist: "By Jahangeer" },
-];
-
-const Search = () => {
 	const [search, setSearch] = useState("");
+	const [results, setResults] = useState([]);
+	const [isFetching, setIsFetching] = useState(false);
+
 	const handleSearch = async ({ currentTarget: input }) => {
 		setSearch(input.value);
+		setResults({});
+		try {
+
+			setIsFetching(true);
+			const url = `http://localhost:3003/user/getByUserName/${input.value}`;
+			const { data } = await axios.get(url);
+
+			// const list = Array.from(data.data);
+			// const list = Object.values(data.data);
+
+			console.log(data.data)
+			setResults(data);
+			// data?.map(user =>  console.log("user"+user ));
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+			setIsFetching(false);
+		}
 	};
 
+	// const filtered = results.data.map(user =>  <UserBar key={user._id} user={user} />)
 	return (
 		<div className={styles.container}>
 			<div className={styles.search_input_container}>
@@ -30,7 +47,7 @@ const Search = () => {
 				</IconButton>
 				<input
 					type="text"
-					placeholder="Search for songs and playlists"
+					placeholder="Search for other users with username"
 					onChange={handleSearch}
 					value={search}
 				/>
@@ -38,20 +55,27 @@ const Search = () => {
 					<ClearIcon />
 				</IconButton>
 			</div>
-			<div className={styles.results_container}>
-				<div className={styles.songs_container}>
-					{songs.map((song) => (
-						<Fragment key={song._id}>
-							<Song song={song} />
-						</Fragment>
-					))}
+			{isFetching && (
+				<div className={styles.progress_container}>
+					<CircularProgress style={{ color: "#1ed760" }} size="5rem" />
 				</div>
-				<div className={styles.playlists_container}>
-					<Playlists playlists={playlists} />
+			)}
+
+			{results?.data?.length !== 0 && (
+				<div className={styles.results_container}>
+					<div className={styles.songs_container}>
+						{results?.data?.map((user) => 
+							{return <Fragment key={user._id}>
+								<UserBar user={user} />
+							</Fragment>}
+						)}
+					</div>
+
 				</div>
-			</div>
+			)}
+
 		</div>
 	);
 };
 
-export default Search;
+export default SearchUser;

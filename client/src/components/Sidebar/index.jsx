@@ -47,40 +47,19 @@ const Sidebar = () => {
 				<LibraryMusicIcon />
 				<span>Your Library</span>
 			</NavLink>
-
-			<NavLink
-				to="/collection/playlist/add"
-				className={styles.create_playlist_btn}
-				activeClassName={styles.active_menu}
-			>
+			<div className={styles.create_playlist_btn}>
 				<AddIcon />
 				<span>Create Playlist</span>
-			</NavLink>
-			<NavLink
-				to="/songs/add"
-				className={styles.menu_link}
-				activeClassName={styles.active_menu}
-			>
-				<LibraryMusicIcon />
-				<span>Upload Music</span>
-			</NavLink>
+			</div>
 			<NavLink
 				to="/collection/tracks"
-				className={styles.menu_link}
-				activeClassName={styles.active_menu}
-			>
-				<LibraryMusicIcon />
-				<span>My Music</span>
-			</NavLink>
-			<NavLink
-				to="/collection/liked-songs"
 				className={styles.menu_link}
 				activeClassName={styles.active_menu}
 			>
 				<img src={likeImg} alt="jfo" />
 				<span>Liked Songs</span>
 			</NavLink>
-			<div className={styles.underline}/>
+			<div className={styles.underline}></div>
 			{playlists.map((playlist) => (
 				<NavLink
 					key={playlist._id}

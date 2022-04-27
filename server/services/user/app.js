@@ -12,20 +12,11 @@ require('../../db')
 const profileRoute = require('./Routes/profile.route')
 
 
-const limiter = rateLimit({
-    max:5,
-    windowMs: 1 * 60 * 1000,
-    standardHeaders: true,
-	legacyHeaders: false, 
-})
-
 const app = express()
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use(limiter)
-app.use(helmet.xssFilter());
-app.use(helmet.hsts());
+
 
 app.use(cors({
     origin: '*'

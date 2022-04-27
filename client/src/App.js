@@ -10,7 +10,6 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
-import Songs from "./pages/Songs";
 import Room from "./pages/Room";
 import Library from "./pages/Library";
 import Sidebar from "./components/Sidebar";
@@ -22,12 +21,7 @@ import SearchUsers from "./pages/SearchUser";
 import Search from "./pages/Search";
 import LikedSongs from "./pages/LikedSongs";
 import Profile from "./pages/Profile";
-<<<<<<< HEAD
 import UserProfile from "./pages/UserProfile";
-=======
-import UploadSong from "./pages/UploadSong";
-import AddPlaylist from "./pages/AddPlaylist";
->>>>>>> 1d530e27b3469d162fc1d85fc202d4808d545d06
 import payment from "./pages/Payment";
 
 const App = () => {
@@ -35,8 +29,7 @@ const App = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const { user } = useSelector((state) => state.auth);
-	// let { user } = useSelector((state) => state.auth);
-	// user = true;
+
 	useEffect(() => {
 		let token = null;
 		const root = JSON.parse(window.localStorage.getItem("persist:root"));
@@ -102,7 +95,7 @@ const App = () => {
 				<PrivateRoute
 					exact
 					user={user}
-					path="/collection/liked-songs"
+					path="/collection/tracks"
 					component={LikedSongs}
 				/>
 				<PrivateRoute
@@ -121,11 +114,10 @@ const App = () => {
 				/>
 				<PrivateRoute 
 					exact 
-					user={user}
+					user={user} 
 					path="/me" 
 					component={Profile} 
 				/>
-<<<<<<< HEAD
 				<PrivateRoute 
 					exact 
 					user={user} 
@@ -137,25 +129,6 @@ const App = () => {
 					user={user} 
 					path="/searchUsers" 
 					component={SearchUsers}  
-=======
-				<PrivateRoute
-					exact
-					user={user}
-					path="/songs/add"
-					component={UploadSong}
-				/>
-				<PrivateRoute
-					exact
-					user={user}
-					path="/collection/tracks"
-					component={Songs}
-				/>
-				<PrivateRoute
-					exact
-					user={user}
-					path="/collection/playlist/add"
-					component={AddPlaylist}
->>>>>>> 1d530e27b3469d162fc1d85fc202d4808d545d06
 				/>
 				{user && <Redirect from="/signup" to="/home" />}
 				{user && <Redirect from="/login" to="/home" />}

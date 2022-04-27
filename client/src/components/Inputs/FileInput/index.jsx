@@ -19,7 +19,7 @@ const FileInput = ({
 				type="file"
 				ref={inputRef}
 				onChange={(e) => handleInputState(name, e.currentTarget.files[0])}
-				value={value}
+				vlaue={value}
 				{...rest}
 			/>
 			<Button
@@ -41,7 +41,7 @@ const FileInput = ({
 					controls
 				/>
 			)}
-
+			<Button label="Upload" style={{ width: "10rem" }} />
 		</div>
 	);
 };

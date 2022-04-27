@@ -18,11 +18,22 @@ module.exports = {
             });
         },
 
+
         getOne:async (req, res, next) => {
             try {
               const user = await User.findById(req.params['id'])
               if (!user) throw createError.BadRequest("User not found")
               else res.send({data : user})
+            } catch (error) {
+              next(error);
+            }
+          },
+
+          getOneByUserName:async (req, res, next) => {
+            try {
+              console.log(req.params.username);
+              const user = await User.find({"username": new RegExp(req.params.username)})
+              res.send({data : user})
             } catch (error) {
               next(error);
             }
@@ -141,23 +152,27 @@ module.exports = {
           getFollowers:async (req, res) => {
             try {
               const user = await User.findById(req.params['id'])
-              if (!user) throw createError.BadRequest("User not found")
-              
-              const followers = await Promise.all(
-                user.followers.map((followerId) => {
-                  return User.findById(followerId);
-                })
-              );
-              let friendList = [];
-              followers.map((follower) => {
-                const { _id, username, profile } = follower;
-                friendList.push({ _id, username, profile });
-              });
-          
-              res.status(200).json(friendList)
-            } catch (err) {
-              res.status(500).json(err.message);
-            }
+               if (!user) throw createError.BadRequest("User not found")
+               
+               const followers = await Promise.all(
+                 user.followers.map((followerId) => {
+                   return User.findById(followerId);
+                 })
+               );
+            
+               let friendList = [];
+
+               followers.map((followers) => {
+                 const { _id, username, profile } = followers;
+                
+                 friendList.push({  _id, username, profile });
+                
+               });
+                
+               res.status(200).json(friendList)
+             } catch (err) {
+               res.status(500).json(err.message);
+             }
           },
 
           getFollowing:async (req, res) => {
