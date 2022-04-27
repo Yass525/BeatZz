@@ -1,57 +1,75 @@
-import { Fragment, useState } from "react";
-import Song from "../../components/Song";
-import Playlists from "../../components/Playlists";
-import { IconButton } from "@mui/material";
-import peaches from "../../images/peaches.jpg";
-import playlistImg from "../../images/rock.jpg";
-import SearchIcon from "@mui/icons-material/Search";
-import ClearIcon from "@mui/icons-material/Clear";
-import styles from "./styles.module.scss";
+    
+    import Song from "../../components/Song";
+    import Playlists from "../../components/Playlists";
+    import { IconButton } from "@mui/material";
+    import peaches from "../../images/peaches.jpg";
+    import playlistImg from "../../images/rock.jpg";
+    import SearchIcon from "@mui/icons-material/Search";
+    import ClearIcon from "@mui/icons-material/Clear";
+    import styles from "./styles.module.scss";
+    import { track } from "./track";
+    import {Table} from "./Table";
+    import axios from "axios";
+    import { useEffect, useState } from "react";
+    import "./app.css";
+    import Mic from "./mick.svg";
 
-const playlists = [
-	{ _id: 1, img: playlistImg, name: "Today's Top Songs", desc: "By Jahangeer" },
-];
 
-const songs = [
-	{ _id: 1, img: peaches, name: "Today's Top Songs", artist: "By Jahangeer" },
-];
+    function Search() {
+        const [query, setQuery] = useState("");
+        const [data, setData] = useState(null);
 
-const Search = () => {
-	const [search, setSearch] = useState("");
-	const handleSearch = async ({ currentTarget: input }) => {
-		setSearch(input.value);
-	};
+        const clickHandle = async()=>{   
+        const res = await axios.get(`http://localhost:3002/scrap/getmusic/${query}`)
+        setData(res.data.lyrics);
+      };
+   
+      const speack = async()=>{   
+        const res = await axios.get(`http://localhost:3002/search/getmusic`)
+        setData(res.data.lyrics);
+      };
+         
+      //console.log(data);
+        return (
+          <div className="app">
+              
+              <IconButton type="button" style={{color:"white"}} onClick={clickHandle}
+              
+              >Search🎼
+              <SearchIcon />
+              </IconButton>
+              <input
+              
+                className="app"
+                placeholder="Search for Lyrics..."
+                onChange={(e) => setQuery(e.target.value.toLowerCase())}
+              />
 
-	return (
-		<div className={styles.container}>
-			<div className={styles.search_input_container}>
-				<IconButton>
-					<SearchIcon />
-				</IconButton>
-				<input
-					type="text"
-					placeholder="Search for songs and playlists"
-					onChange={handleSearch}
-					value={search}
-				/>
-				<IconButton onClick={() => setSearch("")}>
-					<ClearIcon />
-				</IconButton>
-			</div>
-			<div className={styles.results_container}>
-				<div className={styles.songs_container}>
-					{songs.map((song) => (
-						<Fragment key={song._id}>
-							<Song song={song} />
-						</Fragment>
-					))}
-				</div>
-				<div className={styles.playlists_container}>
-					<Playlists playlists={playlists} />
-				</div>
-			</div>
-		</div>
-	);
-};
+            
+            <div className="app">
+            <h3>Click the Mic and Speeck</h3>
+            <div>
+                <img className="microphone"
+                    src={Mic}
+                    alt="microphone"
+                    onClick={speack}
+                />
+            </div>
+        
+      </div>
+                    
+                    <div onChange={(e) => setQuery(e.target.value.toLowerCase())}/>
+                
+            
+            {<Table data={data} />}
 
+          </div>);
+
+
+
+          
+        
+
+        }
+    
 export default Search;

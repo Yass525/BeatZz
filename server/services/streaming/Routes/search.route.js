@@ -43,10 +43,10 @@ router.get("/getmusic/", function (req, res) {
               let $ = cheerio.load(html);
               let lyrics = $(".ringtone").nextAll().text();
               /*Send Results */
-              res.send(lyrics);
+              res.send({lyrics:lyrics});
             })
             .catch((err) => {
-              res.send("Lyrics Not Found 1;("+err.message);
+              res.send({err:"Lyrics Not Found 1;( "});
             });
         })
         .catch((err) => {

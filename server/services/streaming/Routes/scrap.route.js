@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const rp = require("request-promise");
 const cheerio = require("cheerio");
+const Tracks = require ("./Tracks")
+
+
+router.get("/hello",function(req,res){
+  res.json({lyrics: "hello"})
+})
 
 router.get("/getmusic/:query", function (req, res) {
   let query = req.params.query.toString().trim().replace(/ /g, "+");
@@ -43,16 +49,23 @@ router.get("/getmusic/:query", function (req, res) {
           let $ = cheerio.load(html);
           let lyrics = $(".ringtone").nextAll().text();
           /*Send Results */
-          res.send(lyrics);
+          res.send({lyrics:lyrics});
+         
+         
         })
         .catch((err) => {
           // console.log(err);
           res.send("Lyrics Not Found 1;(");
+          
+       
         });
     })
     .catch((err) => {
       // console.log(err);
       res.send("Lyrics Not Found 2;(");
+      res.json(err);
+      res.write(err)
+      //res.write(chunk, encoding='utf8')
     });
 });
 

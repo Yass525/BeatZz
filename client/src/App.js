@@ -26,8 +26,8 @@ const App = () => {
 	require('dotenv').config();
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const { user } = useSelector((state) => state.auth);
-
+	//const { user } = useSelector((state) => state.auth);
+const user= true;
 	useEffect(() => {
 		let token = null;
 		const root = JSON.parse(window.localStorage.getItem("persist:root"));
