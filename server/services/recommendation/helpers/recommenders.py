@@ -64,9 +64,9 @@ class popularity_recommender_py():
 
 
 
-song_df_1 = pd.read_csv(r'C:\Users\yassi\Documents\BeatZz\server\services\\recommendation\public\\triplets_file.csv', dtype={"user_id": "string", "song_id": "string", "listen_count": "string"})
+song_df_1 = pd.read_csv(r'C:\Users\asmab\BeatZz\server\services\\recommendation\public\\triplets_file.csv', dtype={"user_id": "string", "song_id": "string", "listen_count": "string"})
 song_df_1.head()
-song_df_2 = pd.read_csv(r'C:\Users\yassi\Documents\BeatZz\server\services\\recommendation\public\song_data.csv', dtype={"song_id": "string", "title": "string", "release": "string", "artist_name": "string"})
+song_df_2 = pd.read_csv(r'C:\Users\asmab\BeatZz\server\services\\recommendation\public\song_data.csv', dtype={"song_id": "string", "title": "string", "release": "string", "artist_name": "string"})
 song_df_2.head()
 song_df = pd.merge(song_df_1, song_df_2.drop_duplicates(
     ['song_id']), on='song_id', how='left')

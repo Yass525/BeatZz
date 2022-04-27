@@ -2,7 +2,7 @@ import { useState, Fragment } from "react";
 import Song from "../../components/Song";
 import PlaylistModel from "../../components/PlaylistModel";
 import { IconButton } from "@mui/material";
-import playlistImg from "../../images/rock.jpg";
+import alicia from "../../images/alicia.jpg";
 import peaches from "../../images/peaches.jpg";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import EditIcon from "@mui/icons-material/Edit";
@@ -11,13 +11,13 @@ import styles from "./styles.module.scss";
 
 const playlist = {
 	_id: 1,
-	img: playlistImg,
+	img: alicia,
 	name: "Today's Top Songs",
 	desc: "By Jahangeer",
 };
 
 const songs = [
-	{ _id: 1, img: peaches, name: "Peaches", artist: "Justin Bieber" },
+	{ _id: 1, img: alicia, name: "If I Ain't Got You", artist: "Alicia Keys" },
 ];
 
 const Playlist = () => {
