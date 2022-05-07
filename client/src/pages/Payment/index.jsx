@@ -162,7 +162,6 @@
 // export default App;
 
 import React, { useState, useEffect } from "react";
-// import "./App.css";
 import { ProductDisplay } from "../../components/CardInput/index";
 import { Message } from "../../components/CardInput/indexMSG";
  
