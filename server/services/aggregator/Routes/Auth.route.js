@@ -41,9 +41,23 @@ router.post('/register', jsonParser, (req, res) => {
        return res.status(r.response.status).send("An error has occured")
       }
     }).catch(r=>{
-      if(!r)
-      return
-     
+      //console.log("============== CATCH DATA =============")
+      console.log(r.data)
+      if(!r){
+        return res.json({err:"an error has occured"})
+      }
+      
+      if(!r.data){
+        return res.json({err:"an error has occured"})
+      }
+      if(r.data.accessToken){
+        return res.json(r.data)
+      }
+      
+      if(r.response.data.error){
+        return res.status(r.response.data.error.status).send(r.data.error.message)
+      }
+  
       //console.log("=================catch=================")
       //console.log(r)
       if( r.response.status == 400 ||r.response.status == 401 ||r.response.status == 404 ){

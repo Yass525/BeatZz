@@ -45,19 +45,19 @@ router.put('/update/:id', jsonParser, (req, res) => {
       //console.log(r.data)
       res.json(r.data)
     })
-    
+
   })
-
-
-
-
-
-
-
-
-
-
-
+    router.get('/get-songs/:title', jsonParser, (req, res) => {
+      //const token = 
+      const uri = config.services.streaming.url+':'+config.services.streaming.port+'/songs/get-songs/'+req.params['title'];
+      //const response = await request(uri)
+  
+      axios.get(uri).then(r=>{
+        //console.log("============== RESPONSE =============")
+        //console.log(r.data)
+        res.json(r.data)
+      })
+  })
 
 
 

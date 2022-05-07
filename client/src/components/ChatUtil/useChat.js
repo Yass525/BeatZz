@@ -8,6 +8,7 @@ const USER_LEAVE_CHAT_EVENT = "USER_LEAVE_CHAT_EVENT";
 const NEW_CHAT_MESSAGE_EVENT = "NEW_CHAT_MESSAGE_EVENT";
 const START_TYPING_MESSAGE_EVENT = "START_TYPING_MESSAGE_EVENT";
 const STOP_TYPING_MESSAGE_EVENT = "STOP_TYPING_MESSAGE_EVENT";
+const PLAY_SONG = "PLAY_SONG";
 const SOCKET_SERVER_URL = "http://localhost:3004";
 
 
@@ -131,6 +132,10 @@ const useChat = (roomId,mode,pass) => {
       }
     });
 
+    socketRef.current.on(PLAY_SONG, (song) => {
+      console.log("PLAY SONG:")
+      console.log(song)
+    });
     return () => {
       socketRef.current.disconnect();
     };

@@ -6,7 +6,7 @@ const http = require("http");
 
 const cors = require("cors");
 const socketIo = require("socket.io");
-
+const axios = require("axios");
 const { addUser, removeUser, getUsersInRoom } = require("./users");
 const { addMessage, getMessagesInRoom } = require("./messages");
 
@@ -64,7 +64,9 @@ const USER_LEAVE_CHAT_EVENT = "USER_LEAVE_CHAT_EVENT";
 const NEW_CHAT_MESSAGE_EVENT = "NEW_CHAT_MESSAGE_EVENT";
 const START_TYPING_MESSAGE_EVENT = "START_TYPING_MESSAGE_EVENT";
 const STOP_TYPING_MESSAGE_EVENT = "STOP_TYPING_MESSAGE_EVENT";
-
+const PLAY_SONG = "PLAY_SONG";
+const ROOM_ALREADY_EXIST = "ROOM_ALREADY_EXIST";
+const INVALID_LINK = "INVALID_LINK"
 const server = http.createServer(app);
 //const Server = require("socket.io");
 
@@ -108,7 +110,10 @@ io.on("connection", (socket) => {
   }*/
   /*if(!user)
   return;*/
-  if(roomExists(roomId)){
+  if(create=='true'&&roomExists(roomId)){
+    socket.send(ROOM_ALREADY_EXIST)
+  }
+  if(!roomExists(roomId)){
     rooms.push(roomId)
     roomPasswords.push(password)
     roomInviteCodes.push(generateInviteLink())
@@ -128,10 +133,27 @@ io.on("connection", (socket) => {
     io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, message);
     console.log("data")
     console.log(data)
-    /*if(message.body == "!invite"){
-      const message2 = addMessage(roomId, data);
+    if(message.body == "!invite"){
+      const message2 = addMessage(roomId, {body:"Invite link : "+ roomInviteCodes[rooms.indexOf(roomId)],systemMessage:true});
       io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, message2);
-    }*/
+    }
+
+    if(message.body.indexOf("!play ") == 0){
+      songname = message.body.slice(6)
+      console.log("searching for song:"+songname)
+      axios.get("http://localhost:3000/api/song/get-songs/"+songname).then(res=>{
+        console.log(res.data);
+        if(res.data.success){
+          const message3 = addMessage(roomId, {body:"Now playing: "+res.data.songs[0].title,systemMessage:true});
+          io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, message3);
+          io.in(roomId).emit(PLAY_SONG, res.data.songs[0]);
+        }else{
+          const message3 = addMessage(roomId, {body:"No song found with title: "+songname,systemMessage:true});
+          io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, message3);
+         
+        }
+      })
+    }
   });
 
   // Listen typing events
@@ -155,7 +177,7 @@ io.on("connection", (socket) => {
 function generateInviteLink(){
   url = "http://localhost:5000/cinvite/"
   u = randomstring.generate(7);
-  while(roomInviteCodes.indexOf(u)== -1){
+  while(roomInviteCodes.indexOf(u)!= -1){
     u = randomstring.generate(7);
   }
   return url+u;

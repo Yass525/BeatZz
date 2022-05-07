@@ -2,9 +2,9 @@ import React from "react";
 import UserAvatar from "../UserAvatar/UserAvatar";
 
 import "./ChatMessage.css";
-
-const ChatMessage = ({ message }) => {
+function userMessage(message){
   return (
+
     <div
       className={`message-item ${
         message.ownedByCurrentUser ? "my-message" : "received-message"
@@ -24,6 +24,30 @@ const ChatMessage = ({ message }) => {
       </div>
     </div>
   );
+}
+
+
+function systemMessage(message){
+  return (
+
+    <div
+      className={`message-item system-message`}
+    >
+      <div className="message-body-container">
+          <div className="message-user-name">System</div>
+        <div className="message-body">{message.body}</div>
+      </div>
+    </div>
+  );
+}
+
+
+const ChatMessage = ({ message }) => {
+  if(message.systemMessage){
+    return systemMessage(message)
+  }else{
+    return userMessage(message)
+  }
 };
 
 export default ChatMessage;
