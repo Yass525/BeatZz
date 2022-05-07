@@ -50,7 +50,7 @@ const Navbar = () => {
 			{menu && (
 				<ClickAwayListener onClickAway={() => setMenu(false)}>
 					<div className={styles.menu} onClick={() => setMenu(false)}>
-						<Link to={{  pathname: `/profile/${user._id}`}}>
+						<Link to={{  pathname: `/profile/${user?._id}`}}>
 							<div className={styles.options}>
 								<p>Profile</p>
 								<PersonIcon />

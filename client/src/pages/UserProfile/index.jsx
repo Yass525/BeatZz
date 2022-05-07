@@ -112,7 +112,7 @@ export default function Profile() {
 	//fetch user from uid
 	const [UserProfile, setUserProfile] = useState(null)
 	useEffect(() => {
-
+		console.log(user._id)
 		const url = `http://localhost:3003/user/getOne/${id}`;
 		const fetchUser = async () => {
 			try {
