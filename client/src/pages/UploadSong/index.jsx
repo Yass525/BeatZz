@@ -1,29 +1,59 @@
 import styles from "./styles.module.scss";
 import TextField from "../../components/Inputs/TextField";
-import {useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import Select from "../../components/Inputs/Select";
 import Button from "../../components/Button";
 import axios from 'axios';
 import {toast} from "react-toastify";
+import PlayerContext from "../../store/player-context";
+import TextArea from "../../components/Inputs/TextArea";
+import { useSelector, useDispatch } from "react-redux";
 
 const genres = [
-    {name: "HipHop", value: "HipHop"},
-    {name: "Pop", value: "Pop"},
-    {name: "Funk", value: "Funk"},
-    {name: "Jazz", value: "Jazz"},
-    {name: "Trap", value: "Trap"},
-    {name: "Country", value: "Country"},
-    {name: "Blues", value: "Blues"},
-    {name: "KPop", value: "KPop"},
-    {name: "Instrumental", value: "Instrumental"}
+    {name: "HipHop ", value: "HipHop,  "},
+    {name: "Trap ", value: "Trap,  "},
+    {name: "Country ", value: "Country,  "},
+    {name: "Pop ", value: "Pop,  "},
+    {name: "Funk ", value: "Funk,  "},
+    {name: "Jazz ", value: "Jazz, "},
+    {name: "Rock ", value: "Rock,  "},
+    {name: "Blues ", value: "Blues,  "},
+    {name: "KPop ", value: "KPop,  "},
+    {name: "Instrumental ", value: "Instrumental, "},
+    {name: "Alternative/Indie ", value: "Alternative/Indie,  "}
 ];
 
 const UploadSong = () => {
+    const { user } = useSelector((state) => state.user);
+    // const user = {
+    //     _id: '6268913cf11e47afa44c2e2e' ,
+    //     username: 'usertest1',
+    //     password: 'Password123@',
+    //     email: 'test@gmail.com',
+    //     follows:[] ,
+    //     followers:[],
+    //     accType: 'FREE' ,
+    //     ROLE: 'BASIC_USER'
+    // }
+    // const user2 = {
+    //     _id: '6267c66d65570fb4ebd0137b' ,
+    //     username: '2',
+    //     password: 'Password123@',
+    //     email: 'test2@gmail.com',
+    //     follows:[] ,
+    //     followers:[],
+    //     accType: 'FREE' ,
+    //     ROLE: 'BASIC_USER'
+    // }
     const songRef = useRef();
     const imageRef = useRef();
     const [file, setFile] = useState("");
     const [image, setImage] = useState("");
+
+    console.log(user._id);
+
     const onInputFileChange = (event) => {
+        console.log(event.target.files[0])
         setFile(event.target.files[0].type === 'audio/mpeg' ? event.target.files[0] : null);
     };
     const onInputImageChange = (event) => {
@@ -33,6 +63,8 @@ const UploadSong = () => {
         title: "",
         release: "",
         genre: "",
+        artists: [user?._id],
+        lyrics: ""
     });
     const handleInputState = (name, value) => {
         setData((data) => ({...data, [name]: value}));
@@ -46,6 +78,9 @@ const UploadSong = () => {
         formData.append('title', data.title)
         formData.append('genre', data.genre)
         formData.append('release', data.release)
+        formData.append('artists', data.artists)
+        formData.append('lyrics', data.lyrics)
+
         if (file && image) {
             await axios.post('http://localhost:3002/songs/post/', formData)
                 .then((response) => {
@@ -62,6 +97,8 @@ const UploadSong = () => {
         } else if (!image) {
             toast.error('Please select a proper image file !')
         }
+
+        // console.log(user._id)
 
     };
     return (
@@ -97,6 +134,16 @@ const UploadSong = () => {
                             placeholder="Select your music type"
                             options={genres}
                             value={data.genre}
+                            required={true}
+                        />
+                    </div>
+                    <div className={styles.input_container}>
+                        <TextArea
+                            label="Song Lyrics"
+                            placeholder="Enter the song's lyrics "
+                            name="lyrics"
+                            handleInputState={handleInputState}
+                            value={data.lyrics}
                             required={true}
                         />
                     </div>

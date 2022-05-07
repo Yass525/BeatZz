@@ -44,11 +44,9 @@
 		margin: 2rem;
 		display: flex;
 		z-index: 2;
+
 		.songs_container {
-			//background-color: rgba(118, 118, 118, 0.2);
-			border-radius: 0.5rem;
-			margin-left: 110px;
-			width: 800px;
+			flex: 2;
 		}
 
 		.playlists_container {

@@ -23,7 +23,6 @@ import GroupIcon from "@mui/icons-material/Group";
 
 
 const Playlist = () => {
-	const [model, setModel] = useState(false);
 	const [modalIsOpen,setModalIsOpen]= useState(false);
 	const [songs, setSongs] = useState([]);
 	const [playlist,setPlaylist] = useState({
@@ -119,7 +118,7 @@ const Playlist = () => {
 						<p>Title</p>
 					</div>
 					<div className={styles.center}>
-						<p>Artist</p>
+						<p>Genre</p>
 					</div>
 					<div className={styles.right}>
 						<AccessTimeIcon />
@@ -132,14 +131,11 @@ const Playlist = () => {
 				<div className={styles.scroll__container} style={{ marginBottom:"150px" }}>
 					{songs.map((song,index) => (
 						<Fragment key={song._id}>
-							<Song songId={song} song={song} key={index} />
+							<Song songId={song} song={song} key={index} canRemoveFromPlaylist={true}  index={index} songs={songs}/>
 						</Fragment>
 					))}
 				</div>
 			</div>
-			{model && (
-				<PlaylistModel closeModel={() => setModel(false)} playlist={playlist} />
-			)}
 		</div>
 	);
 };

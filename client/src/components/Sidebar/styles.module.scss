@@ -2,13 +2,14 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 24rem;
+	width: 23rem;
 	height: 100vh;
 	background: var(--black);
 	display: flex;
 	flex-direction: column;
 	padding: 0 1rem;
 	z-index: 100;
+
 
 	.progress_container {
 		display: flex;
@@ -53,11 +54,11 @@
 		display: flex;
 		align-items: center;
 		cursor: pointer;
-		margin: 4rem 0 1rem 0;
+		margin: 0 0 1rem 0;
 
 		svg {
-			background-color: var(--light-white);
-			color: var(--black);
+			//background-color: var(--light-white);
+			//color: var(--black);
 			width: 2rem;
 			height: 2rem;
 			margin: 0 2rem;
@@ -102,5 +103,17 @@
 
 	.active_link {
 		color: var(--white);
+	}
+}
+.playlists {
+	color: var(--light-white);
+	padding: 0 0 0 2rem;
+	overflow-y: auto;
+	height: 90px;
+
+	span {
+		display: flex;
+		flex-direction:column;
+		margin-left: 50px;
 	}
 }

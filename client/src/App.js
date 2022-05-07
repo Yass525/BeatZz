@@ -10,7 +10,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
-import Songs from "./pages/Songs";
+import Songs from "./pages/MySongs";
 import Room from "./pages/Room";
 import Library from "./pages/Library";
 import Sidebar from "./components/Sidebar";
@@ -26,6 +26,9 @@ import UserProfile from "./pages/UserProfile";
 import UploadSong from "./pages/UploadSong";
 import AddPlaylist from "./pages/AddPlaylist";
 import payment from "./pages/Payment";
+import SearchLyrics from "./pages/SearchLyrics";
+import AllSongs from "./pages/AllSongs";
+import SongLyrics from "./pages/SongLyrics";
 
 const App = () => {
 	require('dotenv').config();
@@ -109,6 +112,7 @@ const App = () => {
 					component={Library}
 				/>
 				<PrivateRoute exact user={user} path="/search" component={Search} />
+				<PrivateRoute exact user={user} path="/search-lyrics" component={SearchLyrics} />
 				<PrivateRoute exact user={user} path="/payment" component={payment} />
 				<PrivateRoute
 					exact
@@ -143,14 +147,32 @@ const App = () => {
 				<PrivateRoute
 					exact
 					user={user}
-					path="/collection/tracks"
+					path="/collection/mytracks"
 					component={Songs}
+				/>
+				<PrivateRoute
+					exact
+					user={user}
+					path="/collection/tracks"
+					component={AllSongs}
 				/>
 				<PrivateRoute
 					exact
 					user={user}
 					path="/collection/playlist/add"
 					component={AddPlaylist}
+				/>
+				<PrivateRoute
+					exact
+					user={user}
+					path="/collection/playlist/add"
+					component={AddPlaylist}
+				/>
+				<PrivateRoute
+					exact
+					user={user}
+					path="/songs/lyrics/:id"
+					component={SongLyrics}
 				/>
 				{user && <Redirect from="/signup" to="/home" />}
 				{user && <Redirect from="/login" to="/home" />}

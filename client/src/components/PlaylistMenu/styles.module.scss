@@ -1,7 +1,7 @@
 .menu,
 .playlists {
 	z-index: 100;
-	width: 15rem;
+	width: 18rem;
 	border-radius: 0.5rem;
 	padding: 0.5rem;
 	background-color: var(--black);
@@ -41,6 +41,7 @@
 		display: none;
 	}
 	.delete {
+		width: 18rem;
 		background-color: transparent;
 		background-repeat: no-repeat;
 		border: none;
@@ -48,5 +49,9 @@
 		overflow: hidden;
 		outline: none;
 		color: white;
+		font-size: 1.3rem;
+		margin-left: 0.3rem;
+		display: flex;
+		justify-content: flex-start;
 	}
 }

@@ -9,11 +9,12 @@ import playlistLogo from "../../images/playlist_logo.jpg";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
+
 const Playlists = ({ playlists }) => {
 	if (!playlists){
 		return (
 			<div>
-				<h1 style={{textAlign: "center", marginTop: '40px'}}>No Data</h1>
+				<h1 style={{textAlign: "center", fontSize: '15px'}}>No playlist</h1>
 			</div>
 		)
 	}
@@ -38,11 +39,11 @@ const Playlists = ({ playlists }) => {
 							<GroupIcon/>
 						)}
 						<hr style={{color: '#3eaba1', borderRadius:"100%"}}/>
-						<span>
-							<p>{playlist.nbrLikes} <ThumbUpIcon/> </p>
-							<hr style={{color: "#282828", border:"none"}}/>
-							<p>{playlist.nbrPlays} <PlayCircleIcon/> </p>
-						</span>
+						{/*<span>*/}
+						{/*	<p>{playlist.nbrLikes} <ThumbUpIcon/> </p>*/}
+						{/*	<hr style={{color: "#282828", border:"none"}}/>*/}
+						{/*	<p>{playlist.nbrPlays} <PlayCircleIcon/> </p>*/}
+						{/*</span>*/}
 
 					</div>
 				</Link>

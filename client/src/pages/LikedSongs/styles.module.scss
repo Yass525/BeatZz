@@ -86,13 +86,19 @@
 			.right {
 				flex: 1;
 				display: flex;
-				justify-content: flex-end;
-				padding-right: 4rem;
+				justify-content: end;
+				padding-left: 4rem;
 
 				svg {
 					width: 2rem;
 					height: 2rem;
 				}
+			}
+			.icons {
+				display: flex;
+				justify-content: space-evenly;
+				width: 12rem;
+
 			}
 		}
 	}

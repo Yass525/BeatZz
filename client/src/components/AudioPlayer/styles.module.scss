@@ -15,8 +15,8 @@
 		display: flex;
 		flex: 1;
 		img {
-			width: 6rem;
-			height: 6rem;
+			width: 9rem;
+			height: 9rem;
 			object-fit: contain;
 		}
 
@@ -64,8 +64,8 @@
 
 			.play {
 				svg {
-					background-color: var(--white);
-					color: var(--black);
+					background-color: #3eaba1;
+					color: #003933;
 					padding: 0.5rem;
 					border-radius: 50%;
 					width: 2.5rem;
@@ -103,4 +103,23 @@
 		display: flex;
 		justify-content: flex-end;
 	}
+	.lyrics_button {
+		display: flex;
+		flex-wrap: wrap;
+
+		.lyrics_button_text {
+			width: 10.5rem;
+			height: 3rem;
+			border-radius: 1rem;
+			margin: 1rem 0;
+			background: linear-gradient(149.46deg, #077786, #8e8ee5 99.16%);
+
+			h1 {
+				font-size: 1.5rem;
+				padding-top: 5px;
+				padding-left: 10px;
+			}
+		}
+	}
 }
+

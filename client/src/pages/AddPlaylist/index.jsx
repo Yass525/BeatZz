@@ -5,7 +5,7 @@ import Button from "../../components/Button";
 import {useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
-
+import { useSelector, useDispatch } from "react-redux";
 
 const scopes = [
     {name: "Private", value: "PRIVATE"},
@@ -13,11 +13,32 @@ const scopes = [
     {name: "Friends Only", value: "FRIENDS_ONLY"},
 ];
 const AddPlaylist = () => {
-
+    const { user } = useSelector((state) => state.user);
+    // const user = {
+    //     _id: '6268913cf11e47afa44c2e2e' ,
+    //     username: 'usertest1',
+    //     password: 'Password123@',
+    //     email: 'test@gmail.com',
+    //     follows:[] ,
+    //     followers:[],
+    //     accType: 'FREE' ,
+    //     ROLE: 'BASIC_USER'
+    // }
+    // const user2 = {
+    //     _id: '6267c66d65570fb4ebd0137b' ,
+    //     username: '2',
+    //     password: 'Password123@',
+    //     email: 'test2@gmail.com',
+    //     follows:[] ,
+    //     followers:[],
+    //     accType: 'FREE' ,
+    //     ROLE: 'BASIC_USER'
+    // }
     const [data, setData] = useState({
         title: "",
         scope: "",
         songs: [],
+        user:user?._id
     });
     const handleInputState = (name, value) => {
         setData((data) => ({...data, [name]: value}));
