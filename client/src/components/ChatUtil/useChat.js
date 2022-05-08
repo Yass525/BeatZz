@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState ,useContext} from "react";
 import socketIOClient from "socket.io-client";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import store from "../../redux/store"
+
+import PlayerContext from "../../store/player-context";
 const USER_JOIN_CHAT_EVENT = "USER_JOIN_CHAT_EVENT";
 const USER_LEAVE_CHAT_EVENT = "USER_LEAVE_CHAT_EVENT";
 const NEW_CHAT_MESSAGE_EVENT = "NEW_CHAT_MESSAGE_EVENT";
@@ -13,6 +15,7 @@ const SOCKET_SERVER_URL = "http://localhost:3004";
 
 
 const useChat = (roomId,mode,pass) => {
+  const playerCtx = useContext(PlayerContext)
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const [typingUsers, setTypingUsers] = useState([]);
@@ -62,6 +65,8 @@ const useChat = (roomId,mode,pass) => {
         `${SOCKET_SERVER_URL}/rooms/${roomId}/users`
       );
       const result = response.data.users;
+      
+      console.log(result.username)
       setUsers(result);
     };
 
@@ -135,6 +140,20 @@ const useChat = (roomId,mode,pass) => {
     socketRef.current.on(PLAY_SONG, (song) => {
       console.log("PLAY SONG:")
       console.log(song)
+      axios.get('http://localhost:3002/songs/get-image/'+ song._id,{
+			responseType: 'arraybuffer'
+		}).then((response) => {
+			let base64ImageString = Buffer.from(response.data, 'binary').toString('base64')
+			let srcValue = "data:image/png;base64,"+base64ImageString;
+			
+      //const audio = document.getElementById('audio')
+			
+			playerCtx.playSong(song, srcValue, null, null);
+      //audio.play();
+			})
+
+      
+
     });
     return () => {
       socketRef.current.disconnect();

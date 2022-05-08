@@ -21,6 +21,7 @@ const PlayerContext = createContext({
         genre: "",
         artists: [],
     },
+    playing: false,
     playSong: (song, songImage, prevSong, nextSong)=>{},
 });
 
@@ -31,6 +32,7 @@ export function PlayerContextProvider (props)  {
         genre: "",
         artists: [],
     });
+    const [playingCtx,setPlayingCtx] = useState(false);
     const [prevSongCtx, setPrevSongCtx] = useState(null);
     const [nextSongCtx, setNextSongCtx] = useState(null);
     const [songTrackCtx , setSongTrackCtx] = useState('');
@@ -41,13 +43,16 @@ export function PlayerContextProvider (props)  {
         setSongImageCtx(songImage)
         setPrevSongCtx(prevSong)
         setNextSongCtx(nextSong)
+        setPlayingCtx(true)        
         await axios.get('http://localhost:3002/songs/get-track/' + song._id, {
             responseType: 'arraybuffer',
         }).then(response => {
             const arrayBuffer = response.data;
             const blob = new Blob([arrayBuffer], {type: "audio/mpeg"});
             const url = window.URL.createObjectURL(blob);
+            const audio = document.getElementById('audio')
             setSongTrackCtx(url)
+            audio.play();
         })
 
     }
@@ -57,6 +62,7 @@ export function PlayerContextProvider (props)  {
         songImage: songImageCtx,
         prevSong : prevSongCtx,
         nextSong: nextSongCtx,
+        playing: playingCtx,
         playSong: playSongHandler,
     }
     return(

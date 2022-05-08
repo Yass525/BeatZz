@@ -72,7 +72,7 @@ const Song = ({ song, index, songs, canDelete, canRemoveFromPlaylist }) => {
 		}
 		if (songTrack){
 			const audio = document.getElementById('audio')
-			audio.pause();
+			audio.play();
 			playerCtx.playSong(song, songImg, prevSong, nextSong);
 			console.log('2')
 		}

@@ -31,16 +31,16 @@
   text-decoration: none;
   border-radius: 7px;
 }
-h2 {
+h4 {
 
   text-align: center;
 }
-h2 {
+h4 {
 
   text-align: center;
 }
-h2:before,
-h2:after {
+h4:before,
+h4:after {
   background-color: #fff;
   content: "";
   display: inline-block;
@@ -50,12 +50,16 @@ h2:after {
   width: 50%;
 }
 
-h2:before {
+h4:before {
   right: 0.5em;
   margin-left: -50%;
 }
 
-h2:after {
+h4:after {
   left: 0.5em;
   margin-right: -50%;
+}
+
+.chat-room-top-bar{
+  justify-content: space-between;
 }

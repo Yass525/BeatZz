@@ -21,7 +21,7 @@ const adRouter = require('./Routes/ad.route');
 // Middleware
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:4000'
+    origin: '*'
 }));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));

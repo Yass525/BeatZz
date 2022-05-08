@@ -16,6 +16,7 @@ const AudioPlayer = () => {
 	const songCtx = playerCtx.song;
 	const songImageCtx = playerCtx.songImage;
 	const songTrackCtx = playerCtx.songTrack;
+	const playingCtx = playerCtx.playing;
 	const [song,setSong] = useState(songCtx);
 	const [songImage,setSongImage] = useState(songImageCtx);
 	const [songTrack,setSongTrack] = useState(songTrackCtx);
@@ -38,7 +39,9 @@ const AudioPlayer = () => {
 		setSongImage(songImageCtx)
 		setPrevSong(prevSongCtx)
 		setNextSong(nextSongCtx)
-	},[songCtx, songImageCtx,prevSongCtx,nextSongCtx])
+		setPlaying(playingCtx)
+		
+	},[songCtx, songImageCtx,prevSongCtx,nextSongCtx,playingCtx])
 	// split getting track from other data cuz he takes longer
 	useEffect(() => {
 		setSongTrack(songTrackCtx)
@@ -88,6 +91,7 @@ const AudioPlayer = () => {
 
 	const playSong = () => {
 		const audio = document.getElementById("audio");
+		console.log(audio.paused)
 		if (audio.paused) {
 			audio.play();
 			setPlaying(true);
