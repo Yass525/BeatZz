@@ -1,10 +1,11 @@
 {
-  "name": "auth_system",
+  "name": "payment",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "dev":"nodemon app"
   },
   "keywords": [],
   "author": "",

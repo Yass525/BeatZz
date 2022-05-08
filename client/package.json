@@ -11,8 +11,8 @@
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.0.1",
     "@mui/material": "^5.0.2",
-    "@react-icons/all-files": "^4.1.0",
     "@mui/x-date-pickers": "^5.0.0-alpha.2",
+    "@react-icons/all-files": "^4.1.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@stripe/react-stripe-js": "^1.7.2",
     "@stripe/stripe-js": "^1.29.0",
@@ -51,6 +51,7 @@
   },
   "scripts": {
     "start": "set PORT=4000 && react-scripts start",
+    "dev": "set PORT=4000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

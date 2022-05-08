@@ -4,7 +4,8 @@
   "description": "Full Authentication and Authorization system with nodejs mongodb express using access and refresh token",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "dev":"nodemon app"
   },
   "author": "",
   "license": "ISC",
