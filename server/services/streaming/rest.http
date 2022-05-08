@@ -1,7 +1,7 @@
 #Test post requests with postman (form-data)
 ###
 ###
-#Songs Requests
+#MySongs Requests
 ###
 ###
 POST http://localhost:3002/songs/post/

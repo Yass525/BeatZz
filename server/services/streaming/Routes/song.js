@@ -83,13 +83,13 @@ conn.once('open', () => {
 //     if (songs.length === 0) {
 //         return res.status(200).json({
 //             success: false,
-//             message: 'No Songs available'
+//             message: 'No MySongs available'
 //         });
 //     }
 //     res.status(200).json({
 //         success: true,
 //         SongsCount: songs.length,
-//         Songs: songs,
+//         MySongs: songs,
 //     });
 // });
 //GET songs by title
@@ -99,7 +99,7 @@ conn.once('open', () => {
 //             if (songs.length === 0) {
 //                 return res.status(200).json({
 //                     success: false,
-//                     message: 'No Songs available'
+//                     message: 'No MySongs available'
 //                 });
 //             }
 //             res.status(200).json({

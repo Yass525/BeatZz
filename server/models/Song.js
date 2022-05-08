@@ -11,6 +11,7 @@ const songSchema = new Schema({
     image: String,
     nbrListens: Number,
     nbrLikes: Number,
+    lyrics: String,
     // artist name is just for recommendation test
     artist_name: {type: String},
 });

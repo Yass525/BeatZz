@@ -1,5 +1,6 @@
 const Playlist = require("../../../models/Playlist");
 const Song = require("../../../models/Song");
+const User = require('../../../models/User')
 
 module.exports = {
     create: async (req, res) => {
@@ -45,7 +46,7 @@ module.exports = {
         });
     },
     getAll: async (req, res) => {
-        const playlists = await Playlist.find();
+        const playlists = await Playlist.find({ scope: 'PUBLIC' });
         if (playlists.length === 0) {
             return res.status(200).json({
                 success: true,
@@ -57,6 +58,59 @@ module.exports = {
             PlaylistsFound: playlists.length,
             Playlists: playlists
         });
+    },
+    getUserPlaylists: async (req, res) => {
+        if (!req.params.idUser || req.params.idUser == "undefined") return res.status(200).json({
+            success: true,
+            message: 'No Playlists available'
+        });
+
+        const playlists = await Playlist.find({ user: req.params.idUser });
+        if (playlists.length === 0) {
+            return res.status(200).json({
+                success: true,
+                message: 'No Playlists available'
+            });
+        }
+        res.status(200).json({
+            success: true,
+            PlaylistsFound: playlists.length,
+            Playlists: playlists
+        });
+    },
+
+    getFollowsPlaylists: async (req, res) => {
+        try {
+            const user = await User.findById(req.params['idUser'])
+            if (!user) throw createError.BadRequest("User not found")
+
+            const follows = await Promise.all(
+                user.follows.map((followerId) => {
+                    return User.findById(followerId);
+                })
+            );
+
+            let playlist = await Promise.all(
+                follows.map((follows) => {
+                    console.log("1")
+                    const { _id } = follows;
+                    return Playlist.find({ user: _id, scope:'FRIENDS_ONLY' });
+
+                })
+            )
+
+            var playlist2 = [].concat(...playlist)
+
+            console.log("2")
+            console.log(playlist2)
+            res.status(200).json({
+                success: true,
+                Playlists: playlist2
+            });
+
+        } catch (err) {
+            res.status(500).json(err.message);
+        }
     },
     getOne: async (req, res) => {
         const playlist = await Playlist.findById(req.params.id);
