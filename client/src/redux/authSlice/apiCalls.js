@@ -7,7 +7,7 @@ import { loginStart, loginSuccess, loginFailure } from "./index";
 export const login = async (payload, dispatch) => {
 	dispatch(loginStart());
 	try {
-		const url = process.env.REACT_APP_AUTH_URI + "/api/auth/login";
+		const url = process.env.REACT_APP_AUTH_URI + "/auth/login";
 		// const url ="http://localhost:3001/auth/login";
 		const { data } = await axios.post(url, payload);
 

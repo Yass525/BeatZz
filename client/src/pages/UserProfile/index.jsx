@@ -112,7 +112,7 @@ export default function Profile() {
 	//fetch user from uid
 	const [UserProfile, setUserProfile] = useState(null)
 	useEffect(() => {
-		console.log(user._id)
+
 		const url = `http://localhost:3003/user/getOne/${id}`;
 		const fetchUser = async () => {
 			try {
@@ -289,7 +289,18 @@ export default function Profile() {
 					/>)
 				}
 			</CardMedia>
+
 			<CardContent className={classes.cardContent}>
+
+			<Typography
+					className={classes.text}
+					color="textSecondary"
+					variant="h6"
+					align="center"
+				>
+					{/* {props?.content?.name?.first} {props?.content?.name?.last} */}
+					Account Type : {user?.accType}
+				</Typography>
 
 				<Typography
 					className={classes.text}

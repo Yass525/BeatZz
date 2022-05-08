@@ -15,6 +15,7 @@ import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ManageSearchOutlinedIcon from '@mui/icons-material/ManageSearchOutlined';
 import { useSelector, useDispatch } from "react-redux";
+import ExtensionOutlinedIcon from '@mui/icons-material/ExtensionOutlined';
 
 const Sidebar = () => {
     	const { user } = useSelector((state) => state.user);
@@ -71,14 +72,7 @@ const Sidebar = () => {
                 <ManageSearchOutlinedIcon/>
                 <span>Search Lyrics</span>
             </NavLink>
-            <NavLink
-				to="/collection/playlists"
-				className={styles.menu_link}
-				activeClassName={styles.active_menu}
-			>
-				<LibraryMusicIcon />
-				<span>Your Library</span>
-			</NavLink>
+          
 			<NavLink
 				to="/chat"
 				className={styles.menu_link}
@@ -87,10 +81,9 @@ const Sidebar = () => {
 				<ChatIcon />
 				<span>Chat Rooms</span>
 			</NavLink>
-			<div className={styles.create_playlist_btn}>
-				<AddIcon />
-				<span>Create Playlist</span>
-			</div>
+
+			
+
 			<NavLink
                 to="/collection/tracks"
                 className={styles.menu_link}
@@ -134,6 +127,14 @@ const Sidebar = () => {
                 {/*<img src={likeImg} alt="jfo" />*/}
                 <FavoriteIcon/>
                 <span>Liked Songs</span>
+            </NavLink>
+            <NavLink
+                to="/game"
+                className={styles.menu_link}
+                activeClassName={styles.active_menu}
+            >
+                <ExtensionOutlinedIcon/>
+                <span>Play Guess The Song</span>
             </NavLink>
 
 

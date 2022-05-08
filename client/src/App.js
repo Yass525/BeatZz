@@ -30,6 +30,9 @@ import SearchLyrics from "./pages/SearchLyrics";
 import AllSongs from "./pages/AllSongs";
 import SongLyrics from "./pages/SongLyrics";
 import ChatRoom from "./components/ChatRoom/ChatRoom"
+import HomeGame from "./pages/HomeGame"
+import Quiz from "./pages/Quizz"
+import Over from "./pages/Over"
 
 
 const App = () => {
@@ -165,17 +168,31 @@ const App = () => {
 					path="/collection/playlist/add"
 					component={AddPlaylist}
 				/>
-				<PrivateRoute
-					exact
-					user={user}
-					path="/collection/playlist/add"
-					component={AddPlaylist}
-				/>
+				
 				<PrivateRoute
 					exact
 					user={user}
 					path="/songs/lyrics/:id"
 					component={SongLyrics}
+				/>
+					<PrivateRoute
+						exact
+						user={user}
+						path="/game"
+						component={HomeGame}
+					/>
+
+					<PrivateRoute
+					exact
+					user={user}
+					path="/game/quizz"
+					component={Quiz}
+				/>
+					<PrivateRoute
+					exact
+					user={user}
+					path="/game/over"
+					component={Over}
 				/>
 				{user && <Redirect from="/signup" to="/home" />}
 				{user && <Redirect from="/login" to="/home" />}

@@ -55,7 +55,7 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (Object.keys(errors).length === 0) {
-		
+		console.log(data)
 			login(data, dispatch);
 		} else {
 			console.log("please fill out properly");
