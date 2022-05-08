@@ -6,8 +6,9 @@
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-auth": "(cd services/auth) & (nodemon index.js)",
-    "dev-user": "(cd services/user) & (nodemon index.js)",
+    "dev-auth": "(cd services/auth) & (nodemon app.js)",
+    "dev-agg": "(cd services/aggregator) & (nodemon index.js)",
+    "dev-user": "(cd services/user) & (nodemon app.js)",
     "dev-streaming": "(cd services/streaming) & (nodemon index.js)",
     "dev": "npm run dev-auth & npm run dev-user & npm run dev-streaming",
     "start": "nodemon db.js"

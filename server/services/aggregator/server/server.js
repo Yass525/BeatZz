@@ -1,16 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import api from '../api/index.js'
-
+import cors from 'cors'
 
 const start = (options) => {
     return new Promise((resolve, reject) => {
       if (!options.port) {
         reject(new Error('The server must be started with an available port'))
       }
-  
-      const app = express()
 
+      const app = express()
+      app.use(cors())
       /*app.use((err, req, res, next) => {
         reject(new Error('Something went wrong!, err:' + err))
         res.status(500).send('Something went wrong!')
