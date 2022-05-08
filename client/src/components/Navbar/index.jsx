@@ -14,6 +14,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import styles from "./styles.module.scss";
 
+
 const Navbar = () => {
 	const [menu, setMenu] = useState(false);
 	const history = useHistory();
@@ -49,7 +50,7 @@ const Navbar = () => {
 			{menu && (
 				<ClickAwayListener onClickAway={() => setMenu(false)}>
 					<div className={styles.menu} onClick={() => setMenu(false)}>
-						<Link to="/me">
+						<Link to={{  pathname: `/profile/${user?._id}`}}>
 							<div className={styles.options}>
 								<p>Profile</p>
 								<PersonIcon />

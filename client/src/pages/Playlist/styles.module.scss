@@ -101,14 +101,35 @@
 			.right {
 				flex: 1;
 				display: flex;
-				justify-content: flex-end;
-				padding-right: 4rem;
+				justify-content: end;
+				padding-left: 4rem;
 
 				svg {
 					width: 2rem;
 					height: 2rem;
 				}
 			}
+			.icons {
+				display: flex;
+				justify-content: space-evenly;
+				width: 12rem;
+
+			}
 		}
 	}
 }
+.scroll__container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	overflow-y: auto;
+	height:auto;
+
+}
+::-webkit-scrollbar { width: 8px; height: 10px;}
+::-webkit-scrollbar-button {  background-color: #666; }
+::-webkit-scrollbar-track {  background-color: #646464;}
+::-webkit-scrollbar-track-piece { background-color: #000;}
+::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
+::-webkit-scrollbar-corner { background-color: #646464;}
+::-webkit-resizer { background-color: #666;}
