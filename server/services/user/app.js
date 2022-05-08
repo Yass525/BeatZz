@@ -13,7 +13,7 @@ const profileRoute = require('./Routes/profile.route')
 
 
 const limiter = rateLimit({
-    max:5,
+    max:5000,
     windowMs: 1 * 60 * 1000,
     standardHeaders: true,
 	legacyHeaders: false, 

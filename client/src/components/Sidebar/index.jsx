@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
+import ChatIcon from "@mui/icons-material/Chat";
 import AddIcon from "@mui/icons-material/Add";
 import logo from "../../images/beatzz.png";
 import likeImg from "../../images/like.jpg";
@@ -70,6 +71,26 @@ const Sidebar = () => {
                 <ManageSearchOutlinedIcon/>
                 <span>Search Lyrics</span>
             </NavLink>
+            <NavLink
+				to="/collection/playlists"
+				className={styles.menu_link}
+				activeClassName={styles.active_menu}
+			>
+				<LibraryMusicIcon />
+				<span>Your Library</span>
+			</NavLink>
+			<NavLink
+				to="/chat"
+				className={styles.menu_link}
+				activeClassName={styles.active_menu}
+			>
+				<ChatIcon />
+				<span>Chat Rooms</span>
+			</NavLink>
+			<div className={styles.create_playlist_btn}>
+				<AddIcon />
+				<span>Create Playlist</span>
+			</div>
 			<NavLink
                 to="/collection/tracks"
                 className={styles.menu_link}

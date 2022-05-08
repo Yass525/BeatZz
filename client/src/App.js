@@ -11,7 +11,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
 import Songs from "./pages/MySongs";
-import Room from "./pages/Room";
+import RoomPage from "./pages/Room";
 import Library from "./pages/Library";
 import Sidebar from "./components/Sidebar";
 import SidebarProfile from "./components/SidebarProfile";
@@ -29,6 +29,8 @@ import payment from "./pages/Payment";
 import SearchLyrics from "./pages/SearchLyrics";
 import AllSongs from "./pages/AllSongs";
 import SongLyrics from "./pages/SongLyrics";
+import ChatRoom from "./components/ChatRoom/ChatRoom"
+
 
 const App = () => {
 	require('dotenv').config();
@@ -98,7 +100,8 @@ const App = () => {
 			<Switch>
 				<Route exact path="/" component={Main} />
 				<PrivateRoute exact user={user} path="/home" component={Home} />
-				<PrivateRoute exact user={user} path="/chat" component={Room} />
+				<PrivateRoute exact user={user} path="/chat" component={RoomPage} />
+				<PrivateRoute exact user={user} path="/chat/:roomId/:mode" component={ChatRoom} />
 				<PrivateRoute
 					exact
 					user={user}
