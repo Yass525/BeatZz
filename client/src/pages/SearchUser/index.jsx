@@ -21,7 +21,7 @@ const SearchUser = () => {
 		try {
 
 			setIsFetching(true);
-			const url = `http://localhost:3003/user/getByUserName/${input.value}`;
+			const url = `http://www.beatzz.tech:3003/user/getByUserName/${input.value}`;
 			const { data } = await axios.get(url);
 
 			// const list = Array.from(data.data);

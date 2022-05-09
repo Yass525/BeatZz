@@ -27,7 +27,7 @@ const PlaylistMenu = ({ closeMenu, songId, songName, canDelete, canRemoveFromPla
 	const [playlists,setPlaylists] = useState(null);
 
 	useEffect(async () => {
-		await axios.get('http://localhost:3002/playlists/get-user-playlists/'+user?._id)
+		await axios.get('http://www.beatzz.tech:3002/playlists/get-user-playlists/'+user?._id)
 			.then((response) => {
 				setPlaylists(response.data)
 			})
@@ -39,7 +39,7 @@ const PlaylistMenu = ({ closeMenu, songId, songName, canDelete, canRemoveFromPla
 			buttons: [
 				{
 					label: 'Yes',
-					onClick: async () => await axios.delete('http://localhost:3002/songs/delete/' + songId)
+					onClick: async () => await axios.delete('http://www.beatzz.tech:3002/songs/delete/' + songId)
 						.then((response) => {
 							console.log(response.data)
 						}).then(() => { window.location = '/collection/tracks'})
@@ -60,7 +60,7 @@ const PlaylistMenu = ({ closeMenu, songId, songName, canDelete, canRemoveFromPla
 					id = playlist._id;
 				}
 			})
-			await axios.put('http://localhost:3002/playlists/add-song/' + id, {songId: songId})
+			await axios.put('http://www.beatzz.tech:3002/playlists/add-song/' + id, {songId: songId})
 				.then(() => {
 					toast.success('Song added');
 				})
@@ -71,7 +71,7 @@ const PlaylistMenu = ({ closeMenu, songId, songName, canDelete, canRemoveFromPla
 
 	}
 	const handleRemoveFromPlaylist = async (e) => {
-			await axios.put('http://localhost:3002/playlists/remove-song/' + playlistId.id, {songId: songId})
+			await axios.put('http://www.beatzz.tech:3002/playlists/remove-song/' + playlistId.id, {songId: songId})
 				.then(() => { window.location = '/playlist/'+playlistId.id})
 	}
 

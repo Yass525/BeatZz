@@ -27,7 +27,7 @@ const LikedSongs = () => {
 	// }
 	const [songs,setSongs] = useState(null);
 	useEffect(async ()=>{
-		await axios.get('http://localhost:3002/songs/get-liked-songs/'+user?._id)
+		await axios.get('http://www.beatzz.tech:3002/songs/get-liked-songs/'+user?._id)
 			.then((response) => {
 				setSongs(response.data)
 			})

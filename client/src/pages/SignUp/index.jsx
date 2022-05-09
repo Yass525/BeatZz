@@ -69,7 +69,7 @@ const SignUp = () => {
 			try {
 				console.log(data);
 				setIsFetching(true);
-				const url = "http://localhost:3001/auth/register";
+				const url = "http://www.beatzz.tech:3001/auth/register";
 				await axios.post(url, data);
 				setIsFetching(false);
 				toast.info("Account created successfully, Please confirm your mail address", { autoClose: 7000 });

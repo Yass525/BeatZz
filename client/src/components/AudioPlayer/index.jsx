@@ -49,7 +49,7 @@ const AudioPlayer = () => {
 //getting prev and next song data
 	useEffect(async () => {
 		if (prevSong) {
-			await axios.get('http://localhost:3002/songs/get-track/' + prevSong._id, {
+			await axios.get('http://www.beatzz.tech:3002/songs/get-track/' + prevSong._id, {
 				responseType: 'arraybuffer',
 			}).then(response => {
 				const arrayBuffer = response.data;
@@ -57,7 +57,7 @@ const AudioPlayer = () => {
 				const url = window.URL.createObjectURL(blob);
 				setPrevSongTrack(url)
 			})
-			await axios.get('http://localhost:3002/songs/get-image/'+ prevSong._id,{
+			await axios.get('http://www.beatzz.tech:3002/songs/get-image/'+ prevSong._id,{
 				responseType: 'arraybuffer'
 			}).then((response) => {
 				let base64ImageString = Buffer.from(response.data, 'binary').toString('base64')
@@ -69,7 +69,7 @@ const AudioPlayer = () => {
 	}, [prevSong])
 	useEffect(async () => {
 		if (nextSong) {
-			await axios.get('http://localhost:3002/songs/get-track/' + nextSong._id, {
+			await axios.get('http://www.beatzz.tech:3002/songs/get-track/' + nextSong._id, {
 				responseType: 'arraybuffer',
 			}).then(response => {
 				const arrayBuffer = response.data;
@@ -77,7 +77,7 @@ const AudioPlayer = () => {
 				const url = window.URL.createObjectURL(blob);
 				setNextSongTrack(url)
 			})
-			await axios.get('http://localhost:3002/songs/get-image/'+ nextSong._id,{
+			await axios.get('http://www.beatzz.tech:3002/songs/get-image/'+ nextSong._id,{
 				responseType: 'arraybuffer'
 			}).then((response) => {
 				let base64ImageString = Buffer.from(response.data, 'binary').toString('base64')

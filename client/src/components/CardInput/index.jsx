@@ -27,7 +27,7 @@ export const ProductDisplay = () => (
           colourful and fragrant.{" "}
         </p>
       </div>
-      <form action="http://localhost:3006/payment/create-checkout-session" method="POST">
+      <form action="http://www.beatzz.tech:3006/payment/create-checkout-session" method="POST">
         <div className="product-price-btn">
           <p>
             <span>$20</span>

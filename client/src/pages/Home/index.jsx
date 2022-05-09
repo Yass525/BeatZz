@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const Home = () => {
 	const [songs, setSongs] = useState(null);
 	useEffect(async () => {
-		await axios.get('http://localhost:3002/songs/getMostLiked/')
+		await axios.get('http://www.beatzz.tech:3002/songs/getMostLiked/')
 			.then((response) => {
 				setSongs(response.data)
 			})

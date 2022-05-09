@@ -1,5 +1,5 @@
 ###
-GET http://localhost:3001/modelToCSV/recommend/10
+GET http://www.beatzz.tech:3001/modelToCSV/recommend/10
 
 ###
-POST http://localhost:3001/modelToCSV/
+POST http://www.beatzz.tech:3001/modelToCSV/

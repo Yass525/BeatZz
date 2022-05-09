@@ -7,7 +7,7 @@ const SongLyrics = () => {
     const [lyrics, setLyrics] = useState("")
     let id = useParams();
     useEffect(async () => {
-        await axios.get('http://localhost:3002/songs/get-lyrics/'+id.id)
+        await axios.get('http://www.beatzz.tech:3002/songs/get-lyrics/'+id.id)
             .then((response) => {
                 setLyrics(response.data.Lyrics.lyrics)
             })

@@ -105,8 +105,8 @@ module.exports = {
           },
         ],
         mode: 'subscription',
-        success_url: 'http://localhost:3006/payment/success',
-        cancel_url: `http://localhost:3000`,
+        success_url: 'http://www.beatzz.tech:4000/home',
+        cancel_url: `http://www.beatzz.tech:4000`,
       });
       session_id= session.id
    
@@ -120,7 +120,7 @@ module.exports = {
       const filter = { email: session.customer_details.email };
       const update = { accType: 'PREMIUM' };
       await User.findOneAndUpdate(filter, update);
-      res.status(201).redirect("http://localhost:3000");
+      res.status(201).redirect("http://www.beatzz.tech:3000");
      
      }
 

@@ -32,11 +32,11 @@ const Playlist = () => {
 	});
 	let id = useParams();
 	useEffect(async () => {
-		await axios.get('http://localhost:3002/playlists/get/'+id.id)
+		await axios.get('http://www.beatzz.tech:3002/playlists/get/'+id.id)
 			.then((response) => {
 				setPlaylist(response.data.Playlist)
 			})
-		await axios.get('http://localhost:3002/playlists/get-songs/'+id.id)
+		await axios.get('http://www.beatzz.tech:3002/playlists/get-songs/'+id.id)
 			.then((response) => {
 				setSongs(response.data.PlaylistSongs)
 			})
@@ -51,7 +51,7 @@ const Playlist = () => {
 			buttons: [
 				{
 					label: 'Yes',
-					onClick: async () => await axios.delete('http://localhost:3002/playlists/delete/' + id.id)
+					onClick: async () => await axios.delete('http://www.beatzz.tech:3002/playlists/delete/' + id.id)
 						.then(() => { window.location = '/collection/playlists'})
 				},
 				{
@@ -70,7 +70,7 @@ const Playlist = () => {
 		setModalIsOpen(false)
 	}
 	const handleUpdate = async () => {
-		await axios.put('http://localhost:3002/playlists/update/' + id.id, playlist)
+		await axios.put('http://www.beatzz.tech:3002/playlists/update/' + id.id, playlist)
 			.then((response) => {
 				console.log(response.data)
 				handleCloseModal();

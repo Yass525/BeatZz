@@ -8,7 +8,7 @@ export const login = async (payload, dispatch) => {
 	dispatch(loginStart());
 	try {
 		const url = process.env.REACT_APP_AUTH_URI + "/auth/login";
-		// const url ="http://localhost:3001/auth/login";
+		// const url ="http://www.beatzz.tech:3001/auth/login";
 		const { data } = await axios.post(url, payload);
 
 		const decodeData = jwt_decode(data.accessToken);

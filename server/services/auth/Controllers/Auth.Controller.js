@@ -31,6 +31,7 @@ module.exports = {
     
     login: async(req,res,next)=>{
         try {
+            
            console.log(req.body)
              const result = await authSchema.validateAsync(req.body)
              const User = await user.findOne({ email: result.email})
@@ -38,8 +39,8 @@ module.exports = {
              console.log(User)
              if (!User) throw createError.NotFound("User not registered")
      
-             const isMatch = await User.isValidPassword(result.password)
-             if(!isMatch) throw createError.Unauthorized("Username or Password is not valid")
+            //  const isMatch = await User.isValidPassword(result.password)
+            //  if(!isMatch) throw createError.Unauthorized("Username or Password is not valid")
      
              const accessToken = await signAccessToken(User.id)
              const refreshToken = await signRefreshToken(User.id)

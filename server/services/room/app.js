@@ -142,7 +142,7 @@ io.on("connection", (socket) => {
     if(message.body.indexOf("!play ") == 0){
       songname = message.body.slice(6)
       console.log("searching for song:"+songname)
-      axios.get("http://localhost:3000/api/song/get-songs/"+songname).then(res=>{
+      axios.get("http://www.beatzz.tech:3000/api/song/get-songs/"+songname).then(res=>{
         console.log(res.data);
         if(res.data.success){
           const message3 = addMessage(roomId, {body:"Now playing: "+res.data.songs[0].title,systemMessage:true});
@@ -176,7 +176,7 @@ io.on("connection", (socket) => {
 
 
 function generateInviteLink(){
-  url = "http://localhost:5000/cinvite/"
+  url = "http://www.beatzz.tech:5000/cinvite/"
   u = randomstring.generate(7);
   while(roomInviteCodes.indexOf(u)!= -1){
     u = randomstring.generate(7);

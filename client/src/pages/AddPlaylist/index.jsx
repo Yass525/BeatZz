@@ -45,7 +45,7 @@ const AddPlaylist = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:3002/playlists/post', data)
+        await axios.post('http://www.beatzz.tech:3002/playlists/post', data)
             .then((response) => {
                 toast.success('Upload Success');
                 console.log(response.data)

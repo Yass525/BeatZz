@@ -1,7 +1,7 @@
 
 
 ###
-POST http://localhost:3006/payment/purchase/
+POST http://www.beatzz.tech:3006/payment/purchase/
 Content-Type: application/json
 
 {

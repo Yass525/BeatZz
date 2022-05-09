@@ -6,15 +6,15 @@ const serverSettings = {
 const servicesSettings = {
   services:{
     auth:{
-      url:"http://localhost",
+      url:"http://www.beatzz.tech",
       port:3001
     },
     streaming:{
-    url:"http://localhost",
+    url:"http://www.beatzz.tech",
     port:3002
     },
     user:{
-    url:"http://localhost",
+    url:"http://www.beatzz.tech",
     port:3003
     }
   }

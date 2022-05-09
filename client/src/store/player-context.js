@@ -44,7 +44,7 @@ export function PlayerContextProvider (props)  {
         setPrevSongCtx(prevSong)
         setNextSongCtx(nextSong)
         setPlayingCtx(true)        
-        await axios.get('http://localhost:3002/songs/get-track/' + song._id, {
+        await axios.get('http://www.beatzz.tech:3002/songs/get-track/' + song._id, {
             responseType: 'arraybuffer',
         }).then(response => {
             const arrayBuffer = response.data;

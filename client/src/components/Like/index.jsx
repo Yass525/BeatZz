@@ -22,7 +22,7 @@ const Like = ({songId, onLikesChange}) => {
 
 	useEffect(async () =>{
 		if (songId){
-			await axios.get('http://localhost:3002/songs/get-is-liked/' + user?._id + '/' + songId)
+			await axios.get('http://www.beatzz.tech:3002/songs/get-is-liked/' + user?._id + '/' + songId)
 				.then((response) => {
 					setLike(response.data.isLiked)
 				})
@@ -32,14 +32,14 @@ const Like = ({songId, onLikesChange}) => {
 	const likeSong = async  () => {
 		if (!like){
 			setLike(!like)
-			 await axios.put('http://localhost:3002/songs/like-song/' + songId, {user: user?._id})
+			 await axios.put('http://www.beatzz.tech:3002/songs/like-song/' + songId, {user: user?._id})
 				.then((response) => {
 					console.log(response.data)
 					onLikesChange(1)
 				})
 		} else {
 			setLike(!like)
-			await axios.put('http://localhost:3002/songs/dislike-song/' + songId, {user: user?._id})
+			await axios.put('http://www.beatzz.tech:3002/songs/dislike-song/' + songId, {user: user?._id})
 				.then((response) => {
 					console.log(response.data)
 					onLikesChange(-1)

@@ -18,12 +18,12 @@ function Search() {
     const [data, setData] = useState(null);
 
     const clickHandle = async () => {
-        const res = await axios.get(`http://localhost:3002/scrap/getmusic/${query}`)
+        const res = await axios.get(`http://www.beatzz.tech:3002/scrap/getmusic/${query}`)
         setData(res.data.lyrics);
     };
 
     const speak = async () => {
-        const res = await axios.get(`http://localhost:3002/search/getmusic`)
+        const res = await axios.get(`http://www.beatzz.tech:3002/search/getmusic`)
         setData(res.data.lyrics);
     };
 

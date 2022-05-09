@@ -113,7 +113,7 @@ export default function Profile() {
 	const [UserProfile, setUserProfile] = useState(null)
 	useEffect(() => {
 
-		const url = `http://localhost:3003/user/getOne/${id}`;
+		const url = `http://www.beatzz.tech:3003/user/getOne/${id}`;
 		const fetchUser = async () => {
 			try {
 				setIsFetching(true);
@@ -149,12 +149,12 @@ export default function Profile() {
 	const [followsList, setFollowsList] = useState([])
 	const [followerslength, setFollowerlength] = useState([])
 
-	const urlunfollow = `http://localhost:3003/user/unfollow/${user?._id}/${id}`
-	const urlfollow = `http://localhost:3003/user/follow/${user?._id}/${id}`
+	const urlunfollow = `http://www.beatzz.tech:3003/user/unfollow/${user?._id}/${id}`
+	const urlfollow = `http://www.beatzz.tech:3003/user/follow/${user?._id}/${id}`
 
 	useEffect(() => {
 
-		const url = `http://localhost:3003/user/followers/${id}`;
+		const url = `http://www.beatzz.tech:3003/user/followers/${id}`;
 		const fetchFollowers = async () => {
 			try {
 				setIsFetching(true);
@@ -242,7 +242,7 @@ export default function Profile() {
 
 
 	useEffect(() => {
-		const url = `http://localhost:3003/user/following/${id}`;
+		const url = `http://www.beatzz.tech:3003/user/following/${id}`;
 		const fetchFollowing = async () => {
 			try {
 				setIsFetching(true);

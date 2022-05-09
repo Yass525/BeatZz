@@ -23,7 +23,7 @@ const Library = () => {
 
 	useEffect(async () => {
 
-		await axios.get('http://localhost:3002/playlists/get-user-playlists/' + user?._id)
+		await axios.get('http://www.beatzz.tech:3002/playlists/get-user-playlists/' + user?._id)
 			.then((response) => {
 				setPlaylists(response.data)
 			})
@@ -32,7 +32,7 @@ const Library = () => {
 		useEffect(async () => {
 	
 	
-			await axios.get('http://localhost:3002/playlists/getFollowsPlaylists/' + user?._id)
+			await axios.get('http://www.beatzz.tech:3002/playlists/getFollowsPlaylists/' + user?._id)
 				.then((response) => {
 					setPlaylistsfollow(response.data)
 				})

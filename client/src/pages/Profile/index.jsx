@@ -86,7 +86,7 @@ const Profile = () => {
 		console.log(send)
 			try {
 				setIsFetching(true);
-				const url = `http://localhost:3003/user/update/${user?._id}`;
+				const url = `http://www.beatzz.tech:3003/user/update/${user?._id}`;
 				await axios.patch(url,{profile :send});
 				setIsFetching(false);
 				toast.info("Account updated", {
@@ -115,7 +115,7 @@ const Profile = () => {
 
 
 	const handleToken = (token) => {
-		fetch("http://localhost:3006/payment/subscribes", {
+		fetch("http://www.beatzz.tech:3006/payment/subscribes", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -228,7 +228,7 @@ const Profile = () => {
 					/>
 				</div> */}
 				<div className={styles.submit_btn_wrapper}>
-					<form action="http://localhost:3006/payment/create-checkout-session" method="POST">
+					<form action="http://www.beatzz.tech:3006/payment/create-checkout-session" method="POST">
 
 						<Button
 							label="GET BEATZZ PREMIUM"

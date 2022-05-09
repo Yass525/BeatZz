@@ -24,7 +24,7 @@ const Search = () => {
 		setSearch(input.value)
 	};
 	useEffect(async () => {
-		await axios.get('http://localhost:3002/songs/get-songs/'+search)
+		await axios.get('http://www.beatzz.tech:3002/songs/get-songs/'+search)
 			.then(response => {
 				setSongs(response.data.songs)
 			})

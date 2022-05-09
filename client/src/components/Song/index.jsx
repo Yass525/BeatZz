@@ -42,7 +42,7 @@ const Song = ({ song, index, songs, canDelete, canRemoveFromPlaylist }) => {
 			setPrevSong(songs[index - 1])
 			setNextSong(songs[index + 1])
 		}
-		await axios.get('http://localhost:3002/songs/get-image/'+ song._id,{
+		await axios.get('http://www.beatzz.tech:3002/songs/get-image/'+ song._id,{
 			responseType: 'arraybuffer'
 		}).then((response) => {
 			let base64ImageString = Buffer.from(response.data, 'binary').toString('base64')
@@ -50,7 +50,7 @@ const Song = ({ song, index, songs, canDelete, canRemoveFromPlaylist }) => {
 			setSongImg(srcValue)
 			})
 
-		// await axios.get('http://localhost:3002/songs/get-track/'+ song._id, {
+		// await axios.get('http://www.beatzz.tech:3002/songs/get-track/'+ song._id, {
 		// 	responseType: 'arraybuffer',
 		// }).then(response => {
 		// 	const arrayBuffer = response.data;
@@ -68,7 +68,7 @@ const Song = ({ song, index, songs, canDelete, canRemoveFromPlaylist }) => {
 			playerCtx.playSong(song, songImg, prevSong, nextSong);
 			console.log("1")
 			setSongListens(songListens + 1)
-			await axios.put('http://localhost:3002/songs/play-song/' + song._id)
+			await axios.put('http://www.beatzz.tech:3002/songs/play-song/' + song._id)
 		}
 		if (songTrack){
 			const audio = document.getElementById('audio')

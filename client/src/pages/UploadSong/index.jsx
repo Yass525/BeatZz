@@ -82,7 +82,7 @@ const UploadSong = () => {
         formData.append('lyrics', data.lyrics)
 
         if (file && image) {
-            await axios.post('http://localhost:3002/songs/post/', formData)
+            await axios.post('http://www.beatzz.tech:3002/songs/post/', formData)
                 .then((response) => {
                     toast.success('Upload Success');
                     console.log(response.data)

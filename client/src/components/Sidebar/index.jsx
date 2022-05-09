@@ -32,7 +32,7 @@ const Sidebar = () => {
 	const [playlists, setPlaylists] = useState(null);
     useEffect(async () => {
        
-        await axios.get('http://localhost:3002/playlists/get-user-playlists/' + user?._id)
+        await axios.get('http://www.beatzz.tech:3002/playlists/get-user-playlists/' + user?._id)
             .then((response) => {
                 setPlaylists(response.data.Playlists)
             })

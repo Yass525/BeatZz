@@ -11,7 +11,7 @@ const NEW_CHAT_MESSAGE_EVENT = "NEW_CHAT_MESSAGE_EVENT";
 const START_TYPING_MESSAGE_EVENT = "START_TYPING_MESSAGE_EVENT";
 const STOP_TYPING_MESSAGE_EVENT = "STOP_TYPING_MESSAGE_EVENT";
 const PLAY_SONG = "PLAY_SONG";
-const SOCKET_SERVER_URL = "http://localhost:3004";
+const SOCKET_SERVER_URL = "http://www.beatzz.tech:3004";
 
 
 const useChat = (roomId,mode,pass) => {
@@ -50,7 +50,7 @@ const useChat = (roomId,mode,pass) => {
     const fetchCode = async () => {
       const state = store.getState()
       //console.log(state)
-      const response = await axios.get("http://localhost:3004/rooms/"+roomId+"/invitecode");
+      const response = await axios.get("http://www.beatzz.tech:3004/rooms/"+roomId+"/invitecode");
       const result = response.data;
       
       setInvitecode(result);
@@ -140,7 +140,7 @@ const useChat = (roomId,mode,pass) => {
     socketRef.current.on(PLAY_SONG, (song) => {
       console.log("PLAY SONG:")
       console.log(song)
-      axios.get('http://localhost:3002/songs/get-image/'+ song._id,{
+      axios.get('http://www.beatzz.tech:3002/songs/get-image/'+ song._id,{
 			responseType: 'arraybuffer'
 		}).then((response) => {
 			let base64ImageString = Buffer.from(response.data, 'binary').toString('base64')

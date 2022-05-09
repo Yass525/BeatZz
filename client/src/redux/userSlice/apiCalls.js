@@ -3,7 +3,7 @@ import axiosInstance from "../axiosInstance";
 import * as actions from "./index";
 
 // const apiUrl = process.env.USER_URI;
-const apiUrl = "http://localhost:3003";
+const apiUrl = "http://www.beatzz.tech:3003";
 
 export const getUser = async (userId, dispatch) => {
 	

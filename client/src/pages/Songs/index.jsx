@@ -12,7 +12,7 @@ const Songs =  () => {
     ];
     const [songs,setSongs] = useState(null);
     useEffect(async () => {
-        await axios.get('http://localhost:3002/songs/get-songs')
+        await axios.get('http://www.beatzz.tech:3002/songs/get-songs')
             .then((response) => {
                 setSongs(response.data)
             })

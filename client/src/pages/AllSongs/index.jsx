@@ -9,14 +9,14 @@ import playlistImg from "../../images/rock.jpg";
 const Songs =  () => {
     const [playlists,setPlaylists] = useState(null);
     useEffect(async () => {
-        await axios.get('http://localhost:3002/playlists/get-all')
+        await axios.get('http://www.beatzz.tech:3002/playlists/get-all')
             .then((response) => {
                 setPlaylists(response.data)
             })
     }, []);
     const [songs,setSongs] = useState(null);
     useEffect(async () => {
-        await axios.get('http://localhost:3002/songs/get-songs/')
+        await axios.get('http://www.beatzz.tech:3002/songs/get-songs/')
             .then((response) => {
                 setSongs(response.data)
             })
