@@ -40,8 +40,7 @@ const App = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const { user } = useSelector((state) => state.auth);
-	// let { user } = useSelector((state) => state.auth);
-	// user = true;
+	
 	useEffect(() => {
 		let token = null;
 		const root = JSON.parse(window.localStorage.getItem("persist:root"));
